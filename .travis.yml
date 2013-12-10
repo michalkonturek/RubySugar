@@ -1,0 +1,26 @@
+language: objective-c
+before_install:
+
+    # install xctool
+    - brew update
+    - brew remove xctool
+    - brew install xctool
+
+    # FIX: https://github.com/CocoaPods/CocoaPods/issues/1121
+    - gem install cocoapods
+    - gem update cocoapods
+
+    # print version summary
+    - pod --version
+    - xctool -version
+
+    - cd RubySugar
+
+script: xctool -arch i386 ONLY_ACTIVE_ARCH=NO clean build test
+
+# script: xctool -arch i386 ONLY_ACTIVE_ARCH=NO clean build test -freshSimulator -freshInstall
+# script: xctool clean build test -arch i386 ONLY_ACTIVE_ARCH=NO
+# script: xctool clean build test 
+
+notifications:
+    email: false
