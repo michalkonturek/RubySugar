@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
     :tag => "0.0.1" 
   }
 
-  s.source_files = 'RubySugar/RubySugarSource/**/*.{h,m}'
+  s.source_files = 'RubySugar/RubySugar/Source/**/*.{h,m}'
   s.requires_arc = true
 end
