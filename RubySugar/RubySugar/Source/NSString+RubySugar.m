@@ -21,9 +21,22 @@
     return (range.location != NSNotFound);
 }
 
-
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {
-    return nil;
+    static NSString *inclusiveRange = @"..";
+    static NSString *exclusiveRange = @"...";
+    
+    if ([(id)key isKindOfClass:[NSString class]]) {
+        
+        NSRange range = NSRangeFromString((NSString *)key);
+        if ([(NSString *)key containsString:exclusiveRange]) {
+            range = NSMakeRange(range.location + 1, range.length - range.location - 1);
+        } else if ([(NSString *)key containsString:inclusiveRange]) {
+            range = NSMakeRange(range.location, range.length - range.location + 1);
+        }
+        
+        return [self substringWithRange:range];
+    }
+    else @throw [NSException exceptionWithName:@"" reason:@"" userInfo:nil];
 }
 
 

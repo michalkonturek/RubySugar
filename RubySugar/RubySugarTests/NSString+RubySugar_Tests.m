@@ -36,31 +36,31 @@
     
 }
 
-- (void)test_subscript {
+- (void)test_subscript_when_range_exclusive {
     id input = @"Vexilla regis.";
-    id expected = @"xil";
+    id expected = @"il";
     
-    id actual = input[@"2..4"];
+    id actual = input[@"2...5"];
     
     assertThat(actual, equalTo(expected));
 }
 
 - (void)test_subscript_when_range_inclusive {
     id input = @"Vexilla regis.";
-    id expected = @"xil";
+    id expected = @"xill";
     
-    id actual = input[@"2..4"];
+    id actual = input[@"2..5"];
     
     assertThat(actual, equalTo(expected));
 }
 
-- (void)test_subscript_when_range_exclusive {
-    id input = @"Vexilla regis.";
-    id expected = @"xil";
-    
-    id actual = input[@1];
-    
-    assertThat(actual, equalTo(expected));
-}
+//- (void)test_subscript_supports_numbers {
+//    id input = @"Vexilla regis.";
+//    id expected = @"x";
+//    
+//    id actual = input[@2];
+//    
+//    assertThat(actual, equalTo(expected));
+//}
 
 @end
