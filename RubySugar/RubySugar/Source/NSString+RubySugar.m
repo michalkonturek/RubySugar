@@ -37,6 +37,15 @@
     return result;
 }
 
+- (NSString *):(NSInteger)from :(NSInteger)to {
+    return [self :from :to exclusive:NO];
+}
+
+- (NSString *):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive {
+    id op = (exclusive) ? @"..." : @"..";
+    return self[[NSString stringWithFormat:@"%i%@%i", from, op, to]];
+}
+
 - (NSString *)_stringValueOf:(id)object {
     if ([object isKindOfClass:[NSString class]]) return object;
     else if ([object respondsToSelector:@selector(description)]) return [object description];
@@ -65,6 +74,5 @@
 
     } else @throw [NSException exceptionWithName:@"" reason:@"" userInfo:nil];
 }
-
 
 @end

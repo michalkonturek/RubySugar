@@ -16,7 +16,12 @@
 
 - (NSString *):(id)object;
 
+- (NSString *):(NSInteger)from :(NSInteger)to;
+
+- (NSString *):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
+
 - (id)objectAtIndexedSubscript:(NSUInteger)index;
+
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
 
 @end

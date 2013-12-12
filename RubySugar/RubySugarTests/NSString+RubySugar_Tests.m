@@ -79,6 +79,24 @@
     assertThat(actual, equalTo(expected));
 }
 
+- (void)test_shorthand_is_alias_to_keyedSubscript {
+    id input = @"Vexilla regis.";
+    id expected = input[@"1..6"];
+    
+    id actual = [input:1:6];
+    
+    assertThat(actual, equalTo(expected));
+}
+
+- (void)test_shorthand_is_alias_to_keyedSubscript_exclusive {
+    id input = @"Vexilla regis.";
+    id expected = input[@"1...6"];
+    
+    id actual = [input:1:6 exclusive:YES];
+    
+    assertThat(actual, equalTo(expected));
+}
+
 - (void)test_objectAtIndexedSubscript_returns_nil_when_out_of_range {
     id actual = @"Vexilla regis."[100];
     assertThat(actual, nilValue());
