@@ -15,25 +15,46 @@
 
 @interface NSString_RubySugar_Tests : XCTestCase
 
+@property (nonatomic, strong) NSString *target;
+
 @end
 
 @implementation NSString_RubySugar_Tests
 
 - (void)setUp {
     [super setUp];
+    self.target = @"Vexilla regis prodeunt inferni.";
 }
 
 - (void)tearDown {
+    self.target = nil;
     [super tearDown];
 }
 
 
 - (void)test_contains_returns_true {
+    id input = @"regis";
     
+    BOOL result = [self.target rs_containsString:input];
+    
+    assertThatBool(result, equalToBool(YES));
 }
 
 - (void)test_contains_returns_false {
+    id input = @"regiss";
     
+    BOOL result = [self.target rs_containsString:input];
+    
+    assertThatBool(result, equalToBool(NO));
+}
+
+- (void)test_subscript_supports_numbers {
+    id input = @"Vexilla regis.";
+    id expected = @"x";
+    
+    id actual = input[@2];
+    
+    assertThat(actual, equalTo(expected));
 }
 
 - (void)test_subscript_when_range_exclusive {
@@ -53,14 +74,5 @@
     
     assertThat(actual, equalTo(expected));
 }
-
-//- (void)test_subscript_supports_numbers {
-//    id input = @"Vexilla regis.";
-//    id expected = @"x";
-//    
-//    id actual = input[@2];
-//    
-//    assertThat(actual, equalTo(expected));
-//}
 
 @end

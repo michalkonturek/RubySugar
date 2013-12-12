@@ -10,11 +10,11 @@
 
 @implementation NSString (RubySugar)
 
-- (BOOL)containsString:(NSString *)term {
-    return [self containsString:term caseSensitive:YES];
+- (BOOL)rs_containsString:(NSString *)term {
+    return [self rs_containsString:term caseSensitive:YES];
 }
 
-- (BOOL)containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive {
+- (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive {
     NSString *target = (caseSensitive) ? self : [self lowercaseString];
     NSString *searchTerm = (caseSensitive) ? term : [term lowercaseString];
     NSRange range = [target rangeOfString:searchTerm];
@@ -28,15 +28,20 @@
     if ([(id)key isKindOfClass:[NSString class]]) {
         
         NSRange range = NSRangeFromString((NSString *)key);
-        if ([(NSString *)key containsString:exclusiveRange]) {
+        if ([(NSString *)key rs_containsString:exclusiveRange]) {
             range = NSMakeRange(range.location + 1, range.length - range.location - 1);
-        } else if ([(NSString *)key containsString:inclusiveRange]) {
+        } else if ([(NSString *)key rs_containsString:inclusiveRange]) {
             range = NSMakeRange(range.location, range.length - range.location + 1);
         }
         
         return [self substringWithRange:range];
-    }
-    else @throw [NSException exceptionWithName:@"" reason:@"" userInfo:nil];
+    } if ([(id)key isKindOfClass:[NSValue class]]) {
+        
+        NSRange range = [(NSValue *)key rangeValue];
+        range.length = 1;
+        return [self substringWithRange:range];
+
+    } else @throw [NSException exceptionWithName:@"" reason:@"" userInfo:nil];
 }
 
 

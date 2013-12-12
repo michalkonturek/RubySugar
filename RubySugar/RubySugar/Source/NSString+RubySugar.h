@@ -10,8 +10,8 @@
 
 @interface NSString (RubySugar)
 
-- (BOOL)containsString:(NSString *)term;
+- (BOOL)rs_containsString:(NSString *)term;
 
-- (BOOL)containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive;
+- (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive;
 
 @end
