@@ -21,6 +21,28 @@
     return (range.location != NSNotFound);
 }
 
+- (id)objectAtIndexedSubscript:(NSUInteger)index {
+    if (index >= [self length]) return nil;
+    unichar character = [self characterAtIndex:index];    
+    return [NSString stringWithCharacters:&character length:1];
+}
+
+- (NSString *):(id)object {
+    if (!object) return self;
+    
+    id result = [NSMutableString stringWithString:self];
+    id string = [self _stringValueOf:object];
+    [result appendString:string];
+    
+    return result;
+}
+
+- (NSString *)_stringValueOf:(id)object {
+    if ([object isKindOfClass:[NSString class]]) return object;
+    else if ([object respondsToSelector:@selector(description)]) return [object description];
+    else return @"";
+}
+
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {
     static NSString *inclusiveRange = @"..";
     static NSString *exclusiveRange = @"...";

@@ -14,4 +14,9 @@
 
 - (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive;
 
+- (NSString *):(id)object;
+
+- (id)objectAtIndexedSubscript:(NSUInteger)index;
+- (id)objectForKeyedSubscript:(id<NSCopying>)key;
+
 @end
