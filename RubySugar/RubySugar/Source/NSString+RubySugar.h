@@ -24,6 +24,10 @@
 
 - (NSString *)rs_justifyLeft:(NSInteger)length with:(NSString *)pad;
 
+- (NSString *)rs_justifyRight:(NSInteger)length;
+
+- (NSString *)rs_justifyRight:(NSInteger)length with:(NSString *)pad;
+
 - (id)objectAtIndexedSubscript:(NSUInteger)index;
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;

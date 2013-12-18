@@ -53,12 +53,31 @@
 - (NSString *)rs_justifyLeft:(NSInteger)length with:(NSString *)pad {
     if (length <= [self length]) return self;
     
-    length -= [self length];
-    
     id result = [NSMutableString stringWithString:self];
+    
+    length -= [self length];
     for (NSInteger idx = 0; idx < length; idx++) {
         [result appendString:pad];
     }
+    
+    return result;
+}
+
+- (NSString *)rs_justifyRight:(NSInteger)length {
+    return [self rs_justifyRight:length with:@" "];
+}
+
+- (NSString *)rs_justifyRight:(NSInteger)length with:(NSString *)pad {
+    if (length <= [self length]) return self;
+    
+    id result = [NSMutableString string];
+    
+    length -= [self length];
+    for (NSInteger idx = 0; idx < length; idx++) {
+        [result appendString:pad];
+    }
+    
+    [result appendString:self];
     
     return result;
 }

@@ -62,6 +62,33 @@
     assertThat(result, equalTo(expected));
 }
 
+- (void)test_justifyRight_when_length_not_greater_than_current_returns_self {
+    id input = @"Justify me";
+    id expected = input;
+    
+    id result = [input rs_justifyRight:5];
+    
+    assertThat(result, sameInstance(expected));
+}
+
+- (void)test_justifyRight_when_no_pad_specified_returns_padded_string_with_whitespaces {
+    id input = @"Justify me";
+    id expected = @"     Justify me";
+
+    id result = [input rs_justifyRight:15];
+    
+    assertThat(result, equalTo(expected));
+}
+
+- (void)test_justifyRight_when_pad_specified_returns_padded_string_with_specified_pad {
+    id input = @"Justify me";
+    id expected = @"!!!!!Justify me";
+    
+    id result = [input rs_justifyRight:15 with:@"!"];
+    
+    assertThat(result, equalTo(expected));
+}
+
 - (void)test_objectAtIndexedSubscript_is_supported {
     id expected = @"e";
     
