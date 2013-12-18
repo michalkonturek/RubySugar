@@ -18,6 +18,8 @@
 		901B2584185792D000865ECB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B2569185792D000865ECB /* Foundation.framework */; };
 		901B2585185792D000865ECB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B256D185792D000865ECB /* UIKit.framework */; };
 		901B258D185792D000865ECB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 901B258B185792D000865ECB /* InfoPlist.strings */; };
+		90AE5C831861BF8E00E227C4 /* NSNumber+RubySugar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE5C821861BF8E00E227C4 /* NSNumber+RubySugar.m */; };
+		90AE5C851861BFA500E227C4 /* NSNumber+RubySugar_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90AE5C841861BFA500E227C4 /* NSNumber+RubySugar_Tests.m */; };
 		90CD033518593BD0007FCB16 /* NSString+RubySugar_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD033418593BD0007FCB16 /* NSString+RubySugar_Tests.m */; };
 		90CD033818593C66007FCB16 /* NSString+RubySugar.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CD033718593C66007FCB16 /* NSString+RubySugar.m */; };
 		C29C7A9381F945518C2877CB /* libPods-RubySugarTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 196B265B58EB4426A474B72F /* libPods-RubySugarTests.a */; };
@@ -51,6 +53,9 @@
 		901B2582185792D000865ECB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		901B258A185792D000865ECB /* RubySugarTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RubySugarTests-Info.plist"; sourceTree = "<group>"; };
 		901B258C185792D000865ECB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		90AE5C811861BF8E00E227C4 /* NSNumber+RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+RubySugar.h"; sourceTree = "<group>"; };
+		90AE5C821861BF8E00E227C4 /* NSNumber+RubySugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+RubySugar.m"; sourceTree = "<group>"; };
+		90AE5C841861BFA500E227C4 /* NSNumber+RubySugar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+RubySugar_Tests.m"; sourceTree = "<group>"; };
 		90CD033418593BD0007FCB16 /* NSString+RubySugar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RubySugar_Tests.m"; sourceTree = "<group>"; };
 		90CD033618593C66007FCB16 /* NSString+RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RubySugar.h"; sourceTree = "<group>"; };
 		90CD033718593C66007FCB16 /* NSString+RubySugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RubySugar.m"; sourceTree = "<group>"; };
@@ -148,6 +153,7 @@
 		901B2589185792D000865ECB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				90AE5C841861BFA500E227C4 /* NSNumber+RubySugar_Tests.m */,
 				901B258A185792D000865ECB /* RubySugarTests-Info.plist */,
 				901B258B185792D000865ECB /* InfoPlist.strings */,
 			);
@@ -157,6 +163,8 @@
 		90CD033318593B45007FCB16 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				90AE5C811861BF8E00E227C4 /* NSNumber+RubySugar.h */,
+				90AE5C821861BF8E00E227C4 /* NSNumber+RubySugar.m */,
 				90CD033618593C66007FCB16 /* NSString+RubySugar.h */,
 				90CD033718593C66007FCB16 /* NSString+RubySugar.m */,
 			);
@@ -293,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90AE5C831861BF8E00E227C4 /* NSNumber+RubySugar.m in Sources */,
 				90CD033818593C66007FCB16 /* NSString+RubySugar.m in Sources */,
 				901B257A185792D000865ECB /* AppDelegate.m in Sources */,
 				901B2576185792D000865ECB /* main.m in Sources */,
@@ -303,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90AE5C851861BFA500E227C4 /* NSNumber+RubySugar_Tests.m in Sources */,
 				90CD033518593BD0007FCB16 /* NSString+RubySugar_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
