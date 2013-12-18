@@ -10,23 +10,6 @@
 
 @implementation NSString (RubySugar)
 
-- (BOOL)rs_containsString:(NSString *)term {
-    return [self rs_containsString:term caseSensitive:YES];
-}
-
-- (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive {
-    NSString *target = (caseSensitive) ? self : [self lowercaseString];
-    NSString *searchTerm = (caseSensitive) ? term : [term lowercaseString];
-    NSRange range = [target rangeOfString:searchTerm];
-    return (range.location != NSNotFound);
-}
-
-- (id)objectAtIndexedSubscript:(NSUInteger)index {
-    if (index >= [self length]) return nil;
-    unichar character = [self characterAtIndex:index];    
-    return [NSString stringWithCharacters:&character length:1];
-}
-
 - (NSString *):(id)object {
     if (!object) return self;
     
@@ -50,6 +33,59 @@
     if ([object isKindOfClass:[NSString class]]) return object;
     else if ([object respondsToSelector:@selector(description)]) return [object description];
     else return @"";
+}
+
+- (BOOL)rs_containsString:(NSString *)term {
+    return [self rs_containsString:term caseSensitive:YES];
+}
+
+- (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive {
+    NSString *target = (caseSensitive) ? self : [self lowercaseString];
+    NSString *searchTerm = (caseSensitive) ? term : [term lowercaseString];
+    NSRange range = [target rangeOfString:searchTerm];
+    return (range.location != NSNotFound);
+}
+
+- (NSString *)rs_justifyLeft:(NSInteger)length {
+    return [self rs_justifyLeft:length with:@" "];
+}
+
+- (NSString *)rs_justifyLeft:(NSInteger)length with:(NSString *)pad {
+    if (length <= [self length]) return self;
+    
+    id result = [NSMutableString stringWithString:self];
+    
+    length -= [self length];
+    for (NSInteger idx = 0; idx < length; idx++) {
+        [result appendString:pad];
+    }
+    
+    return result;
+}
+
+- (NSString *)rs_justifyRight:(NSInteger)length {
+    return [self rs_justifyRight:length with:@" "];
+}
+
+- (NSString *)rs_justifyRight:(NSInteger)length with:(NSString *)pad {
+    if (length <= [self length]) return self;
+    
+    id result = [NSMutableString string];
+    
+    length -= [self length];
+    for (NSInteger idx = 0; idx < length; idx++) {
+        [result appendString:pad];
+    }
+    
+    [result appendString:self];
+    
+    return result;
+}
+
+- (id)objectAtIndexedSubscript:(NSUInteger)index {
+    if (index >= [self length]) return nil;
+    unichar character = [self characterAtIndex:index];
+    return [NSString stringWithCharacters:&character length:1];
 }
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {
