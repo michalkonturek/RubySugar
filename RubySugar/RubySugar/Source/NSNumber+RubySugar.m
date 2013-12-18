@@ -10,4 +10,20 @@
 
 @implementation NSNumber (RubySugar)
 
+- (void)rs_times:(void(^)(void))block {
+    NSInteger count = [self integerValue];
+    
+    for (NSInteger idx = 0; idx < count; idx++) {
+        block();
+    }
+}
+
+- (void)rs_timesWithIndex:(void(^)(NSInteger index))block {
+    NSInteger count = [self integerValue];
+    
+    for (NSInteger idx = 0; idx < count; idx++) {
+        block(idx);
+    }
+}
+
 @end

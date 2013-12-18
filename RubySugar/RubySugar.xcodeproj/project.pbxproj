@@ -146,6 +146,7 @@
 			children = (
 				901B2589185792D000865ECB /* Supporting Files */,
 				90CD033418593BD0007FCB16 /* NSString+RubySugar_Tests.m */,
+				90AE5C841861BFA500E227C4 /* NSNumber+RubySugar_Tests.m */,
 			);
 			path = RubySugarTests;
 			sourceTree = "<group>";
@@ -153,7 +154,6 @@
 		901B2589185792D000865ECB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				90AE5C841861BFA500E227C4 /* NSNumber+RubySugar_Tests.m */,
 				901B258A185792D000865ECB /* RubySugarTests-Info.plist */,
 				901B258B185792D000865ECB /* InfoPlist.strings */,
 			);
