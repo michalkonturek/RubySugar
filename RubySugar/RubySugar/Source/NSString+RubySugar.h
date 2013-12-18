@@ -10,15 +10,19 @@
 
 @interface NSString (RubySugar)
 
-- (BOOL)rs_containsString:(NSString *)term;
-
-- (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive;
-
 - (NSString *):(id)object;
 
 - (NSString *):(NSInteger)from :(NSInteger)to;
 
 - (NSString *):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
+
+- (BOOL)rs_containsString:(NSString *)term;
+
+- (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive;
+
+- (NSString *)rs_justifyLeft:(NSInteger)length;
+
+- (NSString *)rs_justifyLeft:(NSInteger)length with:(NSString *)pad;
 
 - (id)objectAtIndexedSubscript:(NSUInteger)index;
 
