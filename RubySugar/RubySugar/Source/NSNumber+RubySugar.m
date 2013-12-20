@@ -10,6 +10,14 @@
 
 @implementation NSNumber (RubySugar)
 
+//+ (NSArray *):(NSInteger)from :(NSInteger)to {
+//    return [self rs_from:from to:to];
+//}
+//
+//+ (NSArray *)rs_from:(NSInteger)from to:(NSInteger)to {
+//    return [@(from) rs_to:to];
+//}
+
 - (void)rs_times:(void(^)(void))block {
     NSInteger count = [self integerValue];
     
@@ -25,5 +33,32 @@
         block(idx);
     }
 }
+
+- (void)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block {
+    
+}
+
+- (void)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block {
+    
+}
+
+- (NSArray *)rs_to:(NSInteger)to {
+    NSInteger from = [self integerValue];
+    if (from == to) return [NSArray array];
+    
+    NSInteger range = labs(from - to) + 1;
+    NSInteger step = (from < to) ? 1 : -1;
+    
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:range];
+    for (NSInteger i = 0; i < range; i++) {
+        [result addObject:[NSNumber numberWithInteger:from]];
+        from += step;
+    }
+    
+    return result;
+}
+
+
+
 
 @end

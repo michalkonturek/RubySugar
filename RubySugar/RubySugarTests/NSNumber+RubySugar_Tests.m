@@ -19,14 +19,6 @@
 
 @implementation NSNumber_RubySugar_Tests
 
-- (void)setUp {
-    [super setUp];
-}
-
-- (void)tearDown {
-    [super tearDown];
-}
-
 - (void)test_times_when_zero_or_lower_does_nothing {
     id input = @0;
     id expected = @0;
@@ -74,6 +66,20 @@
     
     assertThat(result, hasCountOf([expected integerValue]));
     assertThat(result, onlyContains(@0, @1, @2, @3, @4, nil));
+}
+
+- (void)test_to_when_from_low_to_high {
+    id result = [@1 rs_to:10];
+    assertThat(result, contains(@1, @2, @3, @4, @5, @6, @7, @8, @9, @10, nil));
+}
+
+- (void)test_to_when_from_high_to_low {
+    id result = [@10 rs_to:1];
+    assertThat(result, contains(@10, @9, @8, @7, @6, @5, @4, @3, @2, @1, nil));
+}
+
+- (void)test_downto_when_no_block_is_given_returns_enumerator {
+    
 }
 
 
