@@ -10,6 +10,11 @@
 
 @implementation NSNumber (RubySugar)
 
+- (instancetype)rs_gcd:(NSInteger)other {
+    if (other == 0) return self;
+    return [@(other) rs_gcd:([self integerValue] % other)];
+}
+
 - (instancetype)rs_next {
     return @([self integerValue] + 1);
 }

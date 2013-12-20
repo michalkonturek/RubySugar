@@ -10,6 +10,14 @@
 
 @interface NSNumber (RubySugar)
 
+/**
+ Returns the greatest common divisor (always positive).
+ */
+- (instancetype)rs_gcd:(NSInteger)other;
+
+/**
+ Returns the Integer equal to int + 1.
+ */
 - (instancetype)rs_next;
 
 - (void)rs_times:(void(^)(void))block;

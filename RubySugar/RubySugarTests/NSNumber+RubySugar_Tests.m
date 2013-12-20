@@ -19,6 +19,25 @@
 
 @implementation NSNumber_RubySugar_Tests
 
+- (void)test_gcd {
+    id target = @1071;
+    id input = @462;
+    id expected = @21;
+
+    assertThat([target rs_gcd:[input integerValue]], equalTo(expected));
+    assertThat([input rs_gcd:[target integerValue]], equalTo(expected));
+}
+
+- (void)test_gcd_works_with_fractions {
+    id target = @16;
+    id input = @3;
+    id expected = @1;
+    
+    assertThat([target rs_gcd:[input integerValue]], equalTo(expected));
+    assertThat([input rs_gcd:[target integerValue]], equalTo(expected));
+
+}
+
 - (void)test_next {
     id input = @1;
     id expected = @2;
