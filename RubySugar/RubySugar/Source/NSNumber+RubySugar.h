@@ -10,6 +10,8 @@
 
 @interface NSNumber (RubySugar)
 
+- (instancetype)rs_next;
+
 - (void)rs_times:(void(^)(void))block;
 - (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
 

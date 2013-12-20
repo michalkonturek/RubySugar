@@ -10,6 +10,10 @@
 
 @implementation NSNumber (RubySugar)
 
+- (instancetype)rs_next {
+    return @([self integerValue] + 1);
+}
+
 - (void)rs_times:(void(^)(void))block {
     NSInteger count = [self integerValue];
     
@@ -71,8 +75,5 @@
     
     return result;
 }
-
-
-
 
 @end

@@ -19,6 +19,15 @@
 
 @implementation NSNumber_RubySugar_Tests
 
+- (void)test_next {
+    id input = @1;
+    id expected = @2;
+    
+    id result = [input rs_next];
+    
+    assertThat(result, equalTo(expected));
+}
+
 - (void)test_times_when_zero_or_lower_does_nothing {
     id input = @0;
     id expected = @0;
@@ -172,16 +181,3 @@
 
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
