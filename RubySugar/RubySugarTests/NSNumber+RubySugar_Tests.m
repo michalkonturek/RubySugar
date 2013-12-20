@@ -79,8 +79,8 @@
 }
 
 - (void)test_downto_when_no_block_is_given_returns_enumerator {
-    id expected = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
-    id result = [@1 rs_downto:10 do:nil];
+    id expected = @[@10, @9, @8, @7, @6, @5, @4, @3, @2, @1];
+    id result = [@10 rs_downto:1 do:nil];
     
     assertThat(result, instanceOf([NSEnumerator class]));
     
@@ -92,16 +92,16 @@
 }
 
 - (void)test_downto_when_block_is_given_returns_self {
-    id input = @5;
+    id input = @10;
     id expected = input;
     
-    id result = [input rs_downto:10 do:^(NSInteger index) {}];
+    id result = [input rs_downto:1 do:^(NSInteger index) {}];
     
     assertThat(result, equalTo(expected));
 }
 
 - (void)test_downto_when_limit_is_larger_then_only_returns_self {
-    id input = @5;
+    id input = @1;
     id expected = @0;
     
     __block NSInteger result = 0;
@@ -121,6 +121,52 @@
         result += index;
     }];
 
+    assertThatInteger(result, equalTo(expected));
+}
+
+- (void)test_upto_when_no_block_is_given_returns_enumerator {
+    id expected = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    id result = [@1 rs_upto:10 do:nil];
+    
+    assertThat(result, instanceOf([NSEnumerator class]));
+    
+    NSInteger idx = 0;
+    for (id item in result) {
+        assertThat(item, equalTo(expected[idx]));
+        idx++;
+    }
+}
+
+- (void)test_upto_when_block_is_given_returns_self {
+    id input = @1;
+    id expected = input;
+    
+    id result = [input rs_upto:10 do:^(NSInteger index) {}];
+    
+    assertThat(result, equalTo(expected));
+}
+
+- (void)test_upto_when_limit_is_smaller_then_only_returns_self {
+    id input = @10;
+    id expected = @0;
+    
+    __block NSInteger result = 0;
+    [input rs_upto:1 do:^(NSInteger index) {
+        result += index;
+    }];
+    
+    assertThatInteger(result, equalTo(expected));
+}
+
+- (void)test_upto {
+    id input = @1;
+    id expected = @55;
+    
+    __block NSInteger result = 0;
+    [input rs_upto:10 do:^(NSInteger index) {
+        result += index;
+    }];
+    
     assertThatInteger(result, equalTo(expected));
 }
 

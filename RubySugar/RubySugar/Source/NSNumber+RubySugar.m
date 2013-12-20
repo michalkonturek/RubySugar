@@ -38,10 +38,21 @@
 }
 
 - (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block {
-    return nil;
+    if (!block) return [self rs_upto:limit];
+    if ([self integerValue] > limit) return self;
+    
+    for (id item in [self rs_upto:limit]) {
+        block([item integerValue]);
+    }
+    
+    return self;
 }
 
 - (NSEnumerator *)rs_downto:(NSInteger)limit {
+    return [[self rs_to:limit] objectEnumerator];
+}
+
+- (NSEnumerator *)rs_upto:(NSInteger)limit {
     return [[self rs_to:limit] objectEnumerator];
 }
 

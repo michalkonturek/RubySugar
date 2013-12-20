@@ -17,6 +17,7 @@
 - (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 
 - (NSEnumerator *)rs_downto:(NSInteger)limit;
+- (NSEnumerator *)rs_upto:(NSInteger)limit;
 
 - (NSArray *)rs_to:(NSInteger)to;
 
