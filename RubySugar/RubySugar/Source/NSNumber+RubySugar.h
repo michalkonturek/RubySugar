@@ -16,8 +16,10 @@
 - (void)rs_times:(void(^)(void))block;
 - (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
-- (void)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
-- (void)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+- (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+- (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+
+- (NSEnumerator *)rs_downto:(NSInteger)limit;
 
 - (NSArray *)rs_to:(NSInteger)to;
 
