@@ -105,11 +105,10 @@
     id expected = @0;
     
     __block NSInteger result = 0;
-    id returned = [input rs_downto:10 do:^(NSInteger index) {
+    [input rs_downto:10 do:^(NSInteger index) {
         result += index;
     }];
     
-    assertThat(returned, equalTo(input));
     assertThatInteger(result, equalTo(expected));
 }
 
@@ -118,11 +117,10 @@
     id expected = @55;
     
     __block NSInteger result = 0;
-    id returned = [input rs_downto:1 do:^(NSInteger index) {
+    [input rs_downto:1 do:^(NSInteger index) {
         result += index;
     }];
 
-    assertThat(returned, equalTo(input));
     assertThatInteger(result, equalTo(expected));
 }
 

@@ -10,14 +10,6 @@
 
 @implementation NSNumber (RubySugar)
 
-//+ (NSArray *):(NSInteger)from :(NSInteger)to {
-//    return [self rs_from:from to:to];
-//}
-//
-//+ (NSArray *)rs_from:(NSInteger)from to:(NSInteger)to {
-//    return [@(from) rs_to:to];
-//}
-
 - (void)rs_times:(void(^)(void))block {
     NSInteger count = [self integerValue];
     
