@@ -10,7 +10,53 @@
 
 @interface NSNumber (RubySugar)
 
-- (void)rs_times:(void(^)(void))block;
-- (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
+/**
+ Returns the greatest common divisor (always positive).
+ */
+- (instancetype)rs_gcd:(NSInteger)other;
+
+/**
+ Returns the least common multiple (always positive).
+ */
+- (instancetype)rs_lcm:(NSInteger)other;
+
+/**
+ Returns successor integer, i.e. i + 1.
+ */
+- (instancetype)rs_next;
+
+/**
+ Returns predecessor integer, i.e. i - 1.
+ */
+- (instancetype)rs_pred;
+
+/**
+ Iterates block n times, passing in values from zero to (n - 1).
+ Returns self. If no block is given, an enumerator is returned instead.
+ */
+- (id)rs_times:(void(^)(void))block;
+
+/**
+ Iterates block n times, passing in values from zero to (n - 1).
+ Returns self. If no block is given, an enumerator is returned instead.
+ */
+- (id)rs_timesWithIndex:(void(^)(NSInteger index))block;
+
+/**
+ Iterates block, passing decreasing values from integer down to and including limit.
+ Returns self. If no block is given, an enumerator is returned instead.
+ */
+- (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+
+/**
+ Iterates block, passing in integer values from integer up to and including limit.
+ Returns self. If no block is given, an enumerator is returned instead.
+ */
+- (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+
+/**
+ Creates array with integers between from and to inclusively.
+ */
+- (NSArray *)rs_numbersTo:(NSInteger)to;
 
 @end
