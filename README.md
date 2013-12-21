@@ -51,10 +51,138 @@ Source code of this project is available under the standard MIT license. Please 
 
 ## NSNumber
 
-```obj-c
-- (void)rs_times:(void(^)(void))block;
-- (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
+
 ```
+- (instancetype)rs_gcd:(NSInteger)other;
+```
+
+ Returns the greatest common divisor (always positive).
+ 
+```
+id result = [@15 rs_gcd:3];
+// => 3
+```
+
+
+```
+- (instancetype)rs_lcm:(NSInteger)other;
+```
+
+ Returns the least common multiple (always positive).
+
+```
+id result = [@5 rs_lcm:3];
+// => 15
+```
+
+
+```
+- (instancetype)rs_next;
+```
+
+ Returns successor integer, i.e. i + 1.
+
+```
+[@1 rs_next];
+// => 2
+```
+
+
+```
+- (instancetype)rs_pred;
+```
+
+ Returns predecessor integer, i.e. i - 1.
+
+```
+[@1 rs_pred];
+// => 0
+```
+
+
+```
+- (id)rs_times:(void(^)(void))block;
+```
+
+ Iterates block n times, passing in values from zero to (n - 1).
+ 
+ Returns self. If no block is given, an enumerator is returned instead.
+
+```
+__block NSInteger result = 0;
+[@5 rs_times:^{
+    result += 2;
+}];
+// => @5
+// result => 10
+```
+
+
+
+```
+- (id)rs_timesWithIndex:(void(^)(NSInteger index))block;
+```
+
+ Iterates block n times, passing in values from zero to (n - 1).
+ 
+ Returns self. If no block is given, an enumerator is returned instead.
+
+```
+__block NSMutableArray *result = [NSMutableArray array];
+[@5 rs_timesWithIndex:^(NSInteger index) {
+    [result addObject:@(index)];
+}];
+// => 5
+// result => [@0, @1, @2, @3, @4,]
+```
+
+```
+- (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+```
+
+ Iterates block, passing decreasing values from integer down to and including limit.
+ 
+ Returns self. If no block is given, an enumerator is returned instead.
+
+```
+[@3 rs_downto:1 do:^(NSInteger index) {
+	NSLog(@"Line %i...", index);
+}];
+// => 3
+// Line 3...
+// Line 2...
+// Line 1...
+```
+ 
+```
+- (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+```
+
+ Iterates block, passing in integer values from integer up to and including limit.
+ 
+ Returns self. If no block is given, an enumerator is returned instead.
+
+```
+[@1 rs_upto:3 do:^(NSInteger index) {
+	NSLog(@"Line %i...", index);
+}];
+// => 1
+// Line 1...
+// Line 2...
+// Line 3...
+```
+
+```
+- (NSArray *)rs_numbersTo:(NSInteger)to;
+```
+
+Creates array with integers between from and to inclusively.
+
+```
+id numbers = [@1 rs_numbersTo:10];
+// => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
 
 - - -
 
