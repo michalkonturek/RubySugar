@@ -136,15 +136,20 @@ __block NSMutableArray *result = [NSMutableArray array];
 // result => [@0, @1, @2, @3, @4,]
 ```
 
-```
+<!--```
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 ```
 
  Iterates block, passing decreasing values from integer down to and including limit.
  
+ Returns self. If no block is given, an enumerator is returned instead.-->
+
+```objc
+- (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+
+ Iterates block, passing decreasing values from integer down to and including limit.
  Returns self. If no block is given, an enumerator is returned instead.
 
-```
 [@3 rs_downto:1 do:^(NSInteger index) {
 	NSLog(@"Line %i...", index);
 }];
@@ -154,15 +159,18 @@ __block NSMutableArray *result = [NSMutableArray array];
 // Line 1...
 ```
  
-```
+<!--```
 - (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 ```
+-->
+
+#### -(id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 
  Iterates block, passing in integer values from integer up to and including limit.
  
  Returns self. If no block is given, an enumerator is returned instead.
 
-```
+```objc
 [@1 rs_upto:3 do:^(NSInteger index) {
 	NSLog(@"Line %i...", index);
 }];
