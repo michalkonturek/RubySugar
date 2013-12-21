@@ -33,11 +33,19 @@
 - (void)rs_times:(void(^)(void))block;
 - (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
+
+/**
+ Iterates block, passing decreasing values from integer down to and including limit.
+ Returns self. If no block is given, an enumerator is returned instead.
+ */
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+
+/**
+ Iterates block, passing in integer values from integer up to and including limit.
+ Returns self. If no block is given, an enumerator is returned instead.
+ */
 - (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 
-- (NSEnumerator *)rs_downto:(NSInteger)limit;
-- (NSEnumerator *)rs_upto:(NSInteger)limit;
 
 - (NSArray *)rs_to:(NSInteger)to;
 
