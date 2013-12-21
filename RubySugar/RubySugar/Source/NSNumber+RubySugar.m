@@ -45,10 +45,10 @@
 }
 
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block {
-    if (!block) return [[self rs_to:limit] objectEnumerator];
+    if (!block) return [[self rs_numbersTo:limit] objectEnumerator];
     if ([self integerValue] < limit) return self;
     
-    for (id item in [self rs_to:limit]) {
+    for (id item in [self rs_numbersTo:limit]) {
         block([item integerValue]);
     }
     
@@ -56,17 +56,17 @@
 }
 
 - (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block {
-    if (!block) return [[self rs_to:limit] objectEnumerator];
+    if (!block) return [[self rs_numbersTo:limit] objectEnumerator];
     if ([self integerValue] > limit) return self;
     
-    for (id item in [self rs_to:limit]) {
+    for (id item in [self rs_numbersTo:limit]) {
         block([item integerValue]);
     }
     
     return self;
 }
 
-- (NSArray *)rs_to:(NSInteger)to {
+- (NSArray *)rs_numbersTo:(NSInteger)to {
     NSInteger from = [self integerValue];
     if (from == to) return [NSArray array];
     

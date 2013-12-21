@@ -30,9 +30,17 @@
  */
 - (instancetype)rs_pred;
 
+/**
+ Iterates block n times, passing in values from zero to (n - 1).
+ If no block is given, an enumerator is returned instead.
+ */
 - (void)rs_times:(void(^)(void))block;
-- (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
+/**
+ Iterates block n times, passing in values from zero to (n - 1).
+ If no block is given, an enumerator is returned instead.
+ */
+- (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
 /**
  Iterates block, passing decreasing values from integer down to and including limit.
@@ -46,7 +54,9 @@
  */
 - (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 
-
-- (NSArray *)rs_to:(NSInteger)to;
+/**
+ Creates array with integers between from and to inclusively.
+ */
+- (NSArray *)rs_numbersTo:(NSInteger)to;
 
 @end
