@@ -16,9 +16,19 @@
 - (instancetype)rs_gcd:(NSInteger)other;
 
 /**
- Returns the Integer equal to int + 1.
+ Returns the least common multiple (always positive).
+ */
+- (instancetype)rs_lcm:(NSInteger)other;
+
+/**
+ Returns successor integer, i.e. i + 1.
  */
 - (instancetype)rs_next;
+
+/**
+ Returns predecessor integer, i.e. i - 1.
+ */
+- (instancetype)rs_pred;
 
 - (void)rs_times:(void(^)(void))block;
 - (void)rs_timesWithIndex:(void(^)(NSInteger index))block;

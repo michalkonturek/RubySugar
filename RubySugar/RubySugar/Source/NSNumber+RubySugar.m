@@ -15,8 +15,17 @@
     return [@(other) rs_gcd:([self integerValue] % other)];
 }
 
+- (instancetype)rs_lcm:(NSInteger)other {
+    if (([self integerValue] == 0) && (other == 0)) return @0;
+    return @(abs([self integerValue] * other) / [[self rs_gcd:other] integerValue]);
+}
+
 - (instancetype)rs_next {
     return @([self integerValue] + 1);
+}
+
+- (instancetype)rs_pred {
+    return @([self integerValue] - 1);
 }
 
 - (void)rs_times:(void(^)(void))block {
