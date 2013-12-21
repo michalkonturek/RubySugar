@@ -52,7 +52,7 @@ Source code of this project is available under the standard MIT license. Please 
 ## NSNumber
 
  
-```
+```objc
 - (instancetype)rs_gcd:(NSInteger)other;
 
 /*
@@ -64,7 +64,7 @@ id result = [@15 rs_gcd:3];
 ```
 
 
-```
+```objc
 - (instancetype)rs_lcm:(NSInteger)other;
 
 /*
@@ -157,7 +157,6 @@ __block NSMutableArray *result = [NSMutableArray array];
 
 /*
  Iterates block, passing in integer values from integer up to and including limit.
- 
  Returns self. If no block is given, an enumerator is returned instead.
  */
 
