@@ -51,14 +51,14 @@ Source code of this project is available under the standard MIT license. Please 
 
 ## NSNumber
 
-
-```
-- (instancetype)rs_gcd:(NSInteger)other;
-```
-
- Returns the greatest common divisor (always positive).
  
 ```
+- (instancetype)rs_gcd:(NSInteger)other;
+
+/*
+ Returns the greatest common divisor (always positive).
+ */
+
 id result = [@15 rs_gcd:3];
 // => 3
 ```
@@ -66,49 +66,48 @@ id result = [@15 rs_gcd:3];
 
 ```
 - (instancetype)rs_lcm:(NSInteger)other;
-```
 
+/*
  Returns the least common multiple (always positive).
-
-```
+ */
+ 
 id result = [@5 rs_lcm:3];
 // => 15
 ```
 
 
-```
+```objc
 - (instancetype)rs_next;
-```
 
+/*
  Returns successor integer, i.e. i + 1.
+ */
 
-```
 [@1 rs_next];
 // => 2
 ```
 
 
-```
+```objc
 - (instancetype)rs_pred;
-```
 
+/*
  Returns predecessor integer, i.e. i - 1.
+ */
 
-```
 [@1 rs_pred];
 // => 0
 ```
 
 
-```
+```objc
 - (id)rs_times:(void(^)(void))block;
-```
 
+/*
  Iterates block n times, passing in values from zero to (n - 1).
- 
  Returns self. If no block is given, an enumerator is returned instead.
+ */
 
-```
 __block NSInteger result = 0;
 [@5 rs_times:^{
     result += 2;
@@ -118,16 +117,14 @@ __block NSInteger result = 0;
 ```
 
 
-
-```
+```objc
 - (id)rs_timesWithIndex:(void(^)(NSInteger index))block;
-```
 
+/*
  Iterates block n times, passing in values from zero to (n - 1).
- 
  Returns self. If no block is given, an enumerator is returned instead.
-
-```
+ */
+ 
 __block NSMutableArray *result = [NSMutableArray array];
 [@5 rs_timesWithIndex:^(NSInteger index) {
     [result addObject:@(index)];
@@ -136,13 +133,6 @@ __block NSMutableArray *result = [NSMutableArray array];
 // result => [@0, @1, @2, @3, @4,]
 ```
 
-<!--```
-- (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
-```
-
- Iterates block, passing decreasing values from integer down to and including limit.
- 
- Returns self. If no block is given, an enumerator is returned instead.-->
 
 ```objc
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
@@ -161,18 +151,16 @@ __block NSMutableArray *result = [NSMutableArray array];
 // Line 1...
 ```
  
-<!--```
-- (id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
-```
--->
 
-#### -(id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
+```objc
+-(id)rs_upto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 
+/*
  Iterates block, passing in integer values from integer up to and including limit.
  
  Returns self. If no block is given, an enumerator is returned instead.
+ */
 
-```objc
 [@1 rs_upto:3 do:^(NSInteger index) {
 	NSLog(@"Line %i...", index);
 }];
@@ -182,13 +170,14 @@ __block NSMutableArray *result = [NSMutableArray array];
 // Line 3...
 ```
 
-```
+
+```objc
 - (NSArray *)rs_numbersTo:(NSInteger)to;
-```
 
+/*
 Creates array with integers between from and to inclusively.
+*/
 
-```
 id numbers = [@1 rs_numbersTo:10];
 // => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
