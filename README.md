@@ -147,8 +147,10 @@ __block NSMutableArray *result = [NSMutableArray array];
 ```objc
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
 
+/*
  Iterates block, passing decreasing values from integer down to and including limit.
  Returns self. If no block is given, an enumerator is returned instead.
+ */
 
 [@3 rs_downto:1 do:^(NSInteger index) {
 	NSLog(@"Line %i...", index);
