@@ -118,6 +118,24 @@
     assertThat(result, equalTo(expected));
 }
 
+- (void)test_times_returns_self {
+    id input = @100;
+    id expected = input;
+    
+    id result = [input rs_times:^{}];
+    
+    assertThat(result, equalTo(expected));
+}
+
+- (void)test_times_when_no_block_is_given_returns_self {
+    id input = @100;
+    id expected = @100;
+    
+    id result = [input rs_times:nil];
+    
+    assertThat(result, equalTo(expected));
+}
+
 - (void)test_times_when_zero_or_lower_does_nothing {
     id input = @0;
     id expected = @0;
@@ -140,6 +158,24 @@
     }];
     
     assertThat(@(result), equalTo(expected));
+}
+
+- (void)test_timesWithIndex_returns_self {
+    id input = @100;
+    id expected = input;
+    
+    id result = [input rs_timesWithIndex:^(NSInteger index) {}];
+    
+    assertThat(result, equalTo(expected));
+}
+
+- (void)test_timesWithIndex_when_no_block_is_given_returns_self {
+    id input = @100;
+    id expected = @100;
+    
+    id result = [input rs_timesWithIndex:nil];
+    
+    assertThat(result, equalTo(expected));
 }
 
 - (void)test_timesWithIndex_when_zero_or_lower_does_nothing {

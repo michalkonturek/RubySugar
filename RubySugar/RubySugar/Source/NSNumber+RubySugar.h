@@ -32,15 +32,15 @@
 
 /**
  Iterates block n times, passing in values from zero to (n - 1).
- If no block is given, an enumerator is returned instead.
+ Returns self. If no block is given, an enumerator is returned instead.
  */
-- (void)rs_times:(void(^)(void))block;
+- (id)rs_times:(void(^)(void))block;
 
 /**
  Iterates block n times, passing in values from zero to (n - 1).
- If no block is given, an enumerator is returned instead.
+ Returns self. If no block is given, an enumerator is returned instead.
  */
-- (void)rs_timesWithIndex:(void(^)(NSInteger index))block;
+- (id)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
 /**
  Iterates block, passing decreasing values from integer down to and including limit.

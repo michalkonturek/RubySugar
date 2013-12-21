@@ -28,20 +28,26 @@
     return @([self integerValue] - 1);
 }
 
-- (void)rs_times:(void(^)(void))block {
-    NSInteger count = [self integerValue];
+- (id)rs_times:(void(^)(void))block {
+    if (!block) return self;
     
+    NSInteger count = [self integerValue];
     for (NSInteger idx = 0; idx < count; idx++) {
         block();
     }
+    
+    return self;
 }
 
-- (void)rs_timesWithIndex:(void(^)(NSInteger index))block {
-    NSInteger count = [self integerValue];
+- (id)rs_timesWithIndex:(void(^)(NSInteger index))block {
+    if (!block) return self;
     
+    NSInteger count = [self integerValue];
     for (NSInteger idx = 0; idx < count; idx++) {
         block(idx);
     }
+    
+    return self;
 }
 
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block {
