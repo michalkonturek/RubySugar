@@ -115,10 +115,6 @@
     return result;
 }
 
-//- (NSArray *)rs_split:(NSString *)pattern limit:(NSInteger)limit {
-//    
-//}
-
 - (id)objectAtIndexedSubscript:(NSUInteger)index {
     if (index >= [self length]) return nil;
     unichar character = [self characterAtIndex:index];

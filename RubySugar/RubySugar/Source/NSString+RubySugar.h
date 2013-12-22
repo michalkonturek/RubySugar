@@ -27,7 +27,6 @@
 
 - (NSArray *)rs_split;
 - (NSArray *)rs_split:(NSString *)pattern;
-//- (NSArray *)rs_split:(NSString *)pattern limit:(NSInteger)limit;
 
 - (id)objectAtIndexedSubscript:(NSUInteger)index;
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
