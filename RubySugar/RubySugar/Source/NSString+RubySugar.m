@@ -46,6 +46,10 @@
     return (range.location != NSNotFound);
 }
 
+- (BOOL)rs_isEmpty {
+    return (self.length == 0);
+}
+
 - (NSString *)rs_justifyLeft:(NSInteger)length {
     return [self rs_justifyLeft:length with:@" "];
 }
@@ -81,6 +85,39 @@
     
     return result;
 }
+
+- (NSArray *)rs_split {
+    return [self rs_split:nil];
+}
+
+- (NSArray *)rs_split:(NSString *)pattern {
+    if (!pattern) {
+        return [self componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    
+    if ([pattern rs_isEmpty]) pattern = @"s*";
+    
+    NSError *error = nil;
+    NSRegularExpression *rx = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                        options:0
+                                                                          error:&error];
+    
+    NSInteger location = 0;
+    id result = [NSMutableArray array];
+    id matches = [rx matchesInString:self options:0 range:[self rangeOfString:self]];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange range = NSMakeRange(location, (match.range.location - location));
+        id token = [self substringWithRange:range];
+        if (![token rs_isEmpty]) [result addObject:token];
+        location = match.range.location + match.range.length;
+    }
+    
+    return result;
+}
+
+//- (NSArray *)rs_split:(NSString *)pattern limit:(NSInteger)limit {
+//    
+//}
 
 - (id)objectAtIndexedSubscript:(NSUInteger)index {
     if (index >= [self length]) return nil;
