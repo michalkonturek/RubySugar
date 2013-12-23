@@ -35,6 +35,16 @@
     assertThatBool(result, equalToBool(NO));
 }
 
+- (void)test_isEmpty_returns_true {
+    id input = @"";
+    assertThatBool([input rs_isEmpty], equalToBool(YES));
+}
+
+- (void)test_isEmpty_returns_false {
+    id input = @"A";
+    assertThatBool([input rs_isEmpty], equalToBool(NO));
+}
+
 - (void)test_justifyLeft_when_length_not_greater_than_current_returns_self {
     id input = @"Justify me";
     id expected = input;
@@ -87,6 +97,27 @@
     id result = [input rs_justifyRight:15 with:@"!"];
     
     assertThat(result, equalTo(expected));
+}
+
+- (void)test_split_when_nil_pattern_it_divides_on_whitespaces {
+    id input = @"Split me";
+    
+    id result = [input rs_split:nil];
+    assertThat(result, contains(@"Split", @"me", nil));
+}
+
+- (void)test_split_divides_on_character {
+    id input = @"! Split!me!good!";
+    
+    id result = [input rs_split:@"!"];
+    assertThat(result, contains(@" Split", @"me", @"good", nil));
+}
+
+- (void)test_split_when_empty_pattern_it_divides_by_character {
+    id input = @"Hello";
+    
+    id result = [input rs_split:@""];
+    assertThat(result, contains(@"H", @"e", @"l", @"l", @"o", nil));
 }
 
 - (void)test_objectAtIndexedSubscript_is_supported {
