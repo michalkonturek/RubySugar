@@ -50,6 +50,12 @@
     return (range.location != NSNotFound);
 }
 
+- (void)rs_eachChar:(void (^)(NSString *))block {
+    for (id item in [self rs_chars]) {
+        block(item);
+    }
+}
+
 - (BOOL)rs_isEmpty {
     return (self.length == 0);
 }

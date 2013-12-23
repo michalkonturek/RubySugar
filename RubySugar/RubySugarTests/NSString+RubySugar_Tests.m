@@ -40,6 +40,17 @@
     assertThatBool(result, equalToBool(NO));
 }
 
+- (void)test_eachChar {
+    id input = @"abcdef";
+    
+    id result = [NSMutableString string];
+    [input rs_eachChar:^(NSString *item) {
+        [result appendString:item];
+    }];
+    
+    assertThat(result, equalTo(input));
+}
+
 - (void)test_isEmpty_returns_true {
     id input = @"";
     assertThatBool([input rs_isEmpty], equalToBool(YES));
