@@ -14,6 +14,8 @@
 - (NSString *):(NSInteger)from :(NSInteger)to;
 - (NSString *):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
 
+- (NSArray *)rs_chars;
+
 - (BOOL)rs_containsString:(NSString *)term;
 - (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive;
 

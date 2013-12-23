@@ -29,6 +29,10 @@
     return self[[NSString stringWithFormat:@"%i%@%i", from, op, to]];
 }
 
+- (NSArray *)rs_chars {
+    return [self rs_split:@""];
+}
+
 - (NSString *)_stringValueOf:(id)object {
     if ([object isKindOfClass:[NSString class]]) return object;
     else if ([object respondsToSelector:@selector(description)]) return [object description];

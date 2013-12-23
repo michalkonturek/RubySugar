@@ -19,6 +19,11 @@
 
 @implementation NSString_RubySugar_Tests
 
+- (void)test_chars {
+    id input = @"abcdef";
+    assertThat([input rs_chars], contains(@"a", @"b", @"c", @"d", @"e", @"f", nil));
+}
+
 - (void)test_contains_returns_true {
     id input = @"regis";
     
