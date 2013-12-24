@@ -76,6 +76,28 @@
     assertThat(result, equalTo(input));
 }
 
+- (void)test_eachChar_when_block_is_given_returns_self {
+    id input = @"abcdef";
+    
+    id result = [input rs_eachChar:^(NSString *item) {}];
+    
+    assertThat(result, equalTo(input));
+}
+
+- (void)test_eachChar_when_no_block_is_given_returns_enumerator {
+    id input = @"abcdef";
+    
+    id result = [input rs_eachChar:nil];
+    
+    assertThat(result, instanceOf([NSEnumerator class]));
+    
+    NSInteger idx = 0;
+    for (id item in result) {
+        assertThat(item, equalTo(input[idx]));
+        idx++;
+    }
+}
+
 - (void)test_isEmpty_returns_true {
     id input = @"";
     assertThatBool([input rs_isEmpty], equalToBool(YES));

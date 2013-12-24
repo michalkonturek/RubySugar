@@ -48,9 +48,10 @@
 - (NSString *)rs_delete:(id)input;
 
 /**
- Passes each character in str to the given block, or returns an enumerator if no block is given.
+ Passes each character in str to the given block and returns self.
+ If no block is given it returns enumerator instead.
  */
-- (void)rs_eachChar:(void(^)(NSString *item))block;
+- (id)rs_eachChar:(void(^)(NSString *item))block;
 
 /**
  Returns true if ([self length] == 0);
