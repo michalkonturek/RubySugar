@@ -10,4 +10,8 @@
 
 @interface NSArray (RubySugar)
 
+- (instancetype)rs_take;
+- (instancetype)rs_takeWhile:(BOOL(^)(id item))block;
+
+
 @end

@@ -10,4 +10,12 @@
 
 @implementation NSArray (RubySugar)
 
+- (instancetype)rs_take {
+    return nil;
+}
+
+- (instancetype)rs_takeWhile:(BOOL(^)(id item))block {
+    return nil;
+}
+
 @end
