@@ -69,10 +69,14 @@
     return self;
 }
 
-- (void)rs_eachChar:(void (^)(NSString *))block {
+- (id)rs_eachChar:(void (^)(NSString *))block {
+    if (!block) return [[self rs_chars] objectEnumerator];
+    
     for (id item in [self rs_chars]) {
         block(item);
     }
+    
+    return self;
 }
 
 - (BOOL)rs_isEmpty {
