@@ -11,7 +11,8 @@
 @interface NSString (RubySugar)
 
 /**
- Appends string and any class responding to description selector.
+ Returns new string by concatenating string with input object.
+ Every object that responds to description selector is appended.
  */
 - (NSString *):(id)object;
 
