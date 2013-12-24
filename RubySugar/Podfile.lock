@@ -1,19 +1,10 @@
 PODS:
-  - Kiwi (2.2.3):
-    - Kiwi/SenTestingKit
-  - Kiwi/ARC (2.2.3)
-  - Kiwi/NonARC (2.2.3)
-  - Kiwi/SenTestingKit (2.2.3):
-    - Kiwi/ARC
-    - Kiwi/NonARC
   - OCHamcrest (3.0.1)
 
 DEPENDENCIES:
-  - Kiwi (>= 2.2.0)
   - OCHamcrest (>= 3.0.0)
 
 SPEC CHECKSUMS:
-  Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
   OCHamcrest: 782c52ae8c673e5d6060a65005cfd26d20d519ba
 
 COCOAPODS: 0.28.0

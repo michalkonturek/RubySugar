@@ -20,6 +20,12 @@
     return result;
 }
 
+- (NSString *)_stringValueOf:(id)object {
+    if ([object isKindOfClass:[NSString class]]) return object;
+    else if ([object respondsToSelector:@selector(description)]) return [object description];
+    else return @"";
+}
+
 - (NSString *):(NSInteger)from :(NSInteger)to {
     return [self :from :to exclusive:NO];
 }
@@ -29,10 +35,8 @@
     return self[[NSString stringWithFormat:@"%i%@%i", from, op, to]];
 }
 
-- (NSString *)_stringValueOf:(id)object {
-    if ([object isKindOfClass:[NSString class]]) return object;
-    else if ([object respondsToSelector:@selector(description)]) return [object description];
-    else return @"";
+- (NSArray *)rs_chars {
+    return [self rs_split:@""];
 }
 
 - (BOOL)rs_containsString:(NSString *)term {
@@ -44,6 +48,35 @@
     NSString *searchTerm = (caseSensitive) ? term : [term lowercaseString];
     NSRange range = [target rangeOfString:searchTerm];
     return (range.location != NSNotFound);
+}
+
+- (NSString *)rs_delete:(id)input {
+    
+    if ([input isKindOfClass:[NSString class]]) {
+        return [self stringByReplacingOccurrencesOfString:input withString:@""];
+    }
+    
+    if ([input conformsToProtocol:@protocol(NSFastEnumeration)]) {
+        if ([input isKindOfClass:[NSDictionary class]]) input = [input allObjects];
+        
+        id result = [self copy];
+        for (id term in input) {
+            result = [result stringByReplacingOccurrencesOfString:term withString:@""];
+        }
+        return result;
+    }
+    
+    return self;
+}
+
+- (void)rs_eachChar:(void (^)(NSString *))block {
+    for (id item in [self rs_chars]) {
+        block(item);
+    }
+}
+
+- (BOOL)rs_isEmpty {
+    return (self.length == 0);
 }
 
 - (NSString *)rs_justifyLeft:(NSInteger)length {
@@ -78,6 +111,35 @@
     }
     
     [result appendString:self];
+    
+    return result;
+}
+
+- (NSArray *)rs_split {
+    return [self rs_split:nil];
+}
+
+- (NSArray *)rs_split:(NSString *)pattern {
+    if (!pattern) {
+        return [self componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    
+    if ([pattern rs_isEmpty]) pattern = @"s*";
+    
+    NSError *error = nil;
+    NSRegularExpression *rx = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                        options:0
+                                                                          error:&error];
+    
+    NSInteger location = 0;
+    id result = [NSMutableArray array];
+    id matches = [rx matchesInString:self options:0 range:[self rangeOfString:self]];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange range = NSMakeRange(location, (match.range.location - location));
+        id token = [self substringWithRange:range];
+        if (![token rs_isEmpty]) [result addObject:token];
+        location = match.range.location + match.range.length;
+    }
     
     return result;
 }

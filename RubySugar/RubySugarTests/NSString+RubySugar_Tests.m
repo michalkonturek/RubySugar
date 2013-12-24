@@ -19,6 +19,11 @@
 
 @implementation NSString_RubySugar_Tests
 
+- (void)test_chars {
+    id input = @"abcdef";
+    assertThat([input rs_chars], contains(@"a", @"b", @"c", @"d", @"e", @"f", nil));
+}
+
 - (void)test_contains_returns_true {
     id input = @"regis";
     
@@ -33,6 +38,52 @@
     BOOL result = [@"Vexilla regis." rs_containsString:input];
     
     assertThatBool(result, equalToBool(NO));
+}
+
+- (void)test_delete_supports_string_input {
+    id input = @"l";
+    assertThat([@"hello" rs_delete:input], equalTo(@"heo"));
+}
+
+- (void)test_delete_supports_array_input {
+    id input = @[@"l", @"o"];
+    assertThat([@"hello" rs_delete:input], equalTo(@"he"));
+}
+
+- (void)test_delete_supports_set_input {
+    id input = [NSSet setWithArray:@[@"l", @"o"]];
+    assertThat([@"hello" rs_delete:input], equalTo(@"he"));
+}
+
+- (void)test_delete_supports_dictionary_input {
+    id input = @{@1: @"l", @2: @"o"};
+    assertThat([@"hello" rs_delete:input], equalTo(@"he"));
+}
+
+- (void)test_delete_when_not_supported_type_returns_self {
+    id target = @"hello";
+    assertThat([target rs_delete:@1], equalTo(target));
+}
+
+- (void)test_eachChar {
+    id input = @"abcdef";
+    
+    id result = [NSMutableString string];
+    [input rs_eachChar:^(NSString *item) {
+        [result appendString:item];
+    }];
+    
+    assertThat(result, equalTo(input));
+}
+
+- (void)test_isEmpty_returns_true {
+    id input = @"";
+    assertThatBool([input rs_isEmpty], equalToBool(YES));
+}
+
+- (void)test_isEmpty_returns_false {
+    id input = @"A";
+    assertThatBool([input rs_isEmpty], equalToBool(NO));
 }
 
 - (void)test_justifyLeft_when_length_not_greater_than_current_returns_self {
@@ -87,6 +138,27 @@
     id result = [input rs_justifyRight:15 with:@"!"];
     
     assertThat(result, equalTo(expected));
+}
+
+- (void)test_split_when_nil_pattern_it_divides_on_whitespaces {
+    id input = @"Split me";
+    
+    id result = [input rs_split:nil];
+    assertThat(result, contains(@"Split", @"me", nil));
+}
+
+- (void)test_split_divides_on_character {
+    id input = @"! Split!me!good!";
+    
+    id result = [input rs_split:@"!"];
+    assertThat(result, contains(@" Split", @"me", @"good", nil));
+}
+
+- (void)test_split_when_empty_pattern_it_divides_by_character {
+    id input = @"Hello";
+    
+    id result = [input rs_split:@""];
+    assertThat(result, contains(@"H", @"e", @"l", @"l", @"o", nil));
 }
 
 - (void)test_objectAtIndexedSubscript_is_supported {
