@@ -19,6 +19,8 @@
 - (BOOL)rs_containsString:(NSString *)term;
 - (BOOL)rs_containsString:(NSString *)term caseSensitive:(BOOL)caseSensitive;
 
+- (NSString *)rs_delete:(id)input;
+
 - (void)rs_eachChar:(void(^)(NSString *item))block;
 
 - (BOOL)rs_isEmpty;

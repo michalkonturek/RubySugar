@@ -40,6 +40,31 @@
     assertThatBool(result, equalToBool(NO));
 }
 
+- (void)test_delete_supports_string_input {
+    id input = @"l";
+    assertThat([@"hello" rs_delete:input], equalTo(@"heo"));
+}
+
+- (void)test_delete_supports_array_input {
+    id input = @[@"l", @"o"];
+    assertThat([@"hello" rs_delete:input], equalTo(@"he"));
+}
+
+- (void)test_delete_supports_set_input {
+    id input = [NSSet setWithArray:@[@"l", @"o"]];
+    assertThat([@"hello" rs_delete:input], equalTo(@"he"));
+}
+
+- (void)test_delete_supports_dictionary_input {
+    id input = @{@1: @"l", @2: @"o"};
+    assertThat([@"hello" rs_delete:input], equalTo(@"he"));
+}
+
+- (void)test_delete_when_not_supported_type_returns_self {
+    id target = @"hello";
+    assertThat([target rs_delete:@1], equalTo(target));
+}
+
 - (void)test_eachChar {
     id input = @"abcdef";
     

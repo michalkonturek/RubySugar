@@ -50,6 +50,25 @@
     return (range.location != NSNotFound);
 }
 
+- (NSString *)rs_delete:(id)input {
+    
+    if ([input isKindOfClass:[NSString class]]) {
+        return [self stringByReplacingOccurrencesOfString:input withString:@""];
+    }
+    
+    if ([input conformsToProtocol:@protocol(NSFastEnumeration)]) {
+        if ([input isKindOfClass:[NSDictionary class]]) input = [input allObjects];
+        
+        id result = [self copy];
+        for (id term in input) {
+            result = [result stringByReplacingOccurrencesOfString:term withString:@""];
+        }
+        return result;
+    }
+    
+    return self;
+}
+
 - (void)rs_eachChar:(void (^)(NSString *))block {
     for (id item in [self rs_chars]) {
         block(item);
