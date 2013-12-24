@@ -10,12 +10,23 @@
 
 @interface NSString (RubySugar)
 
+/**
+ Appends string and any class responding to description selector.
+ */
 - (NSString *):(id)object;
+
+/**
+ Returns self[@"<from>..<to>"]
+ */
 - (NSString *):(NSInteger)from :(NSInteger)to;
+
+/**
+ Returns self[@"<from>..<to>"] or Returns self[@"<from>...<to>"] if exclusive.
+ */
 - (NSString *):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
 
 /**
- Returns an array of characters in str.
+ Returns an array of characters in string.
  */
 - (NSArray *)rs_chars;
 

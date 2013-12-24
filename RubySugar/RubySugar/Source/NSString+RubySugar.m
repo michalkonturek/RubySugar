@@ -20,6 +20,12 @@
     return result;
 }
 
+- (NSString *)_stringValueOf:(id)object {
+    if ([object isKindOfClass:[NSString class]]) return object;
+    else if ([object respondsToSelector:@selector(description)]) return [object description];
+    else return @"";
+}
+
 - (NSString *):(NSInteger)from :(NSInteger)to {
     return [self :from :to exclusive:NO];
 }
@@ -31,12 +37,6 @@
 
 - (NSArray *)rs_chars {
     return [self rs_split:@""];
-}
-
-- (NSString *)_stringValueOf:(id)object {
-    if ([object isKindOfClass:[NSString class]]) return object;
-    else if ([object respondsToSelector:@selector(description)]) return [object description];
-    else return @"";
 }
 
 - (BOOL)rs_containsString:(NSString *)term {
