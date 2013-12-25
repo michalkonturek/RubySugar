@@ -24,7 +24,20 @@
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
-- (instancetype)rs_take;
+
+/**
+ Returns first n elements from the array.
+ 
+ If a negative number is given, raises an ArgumentError.
+ */
+- (instancetype)rs_take:(NSInteger)count;
+
+/**
+ Passes elements to the block until the block returns nil or false, 
+ then stops iterating and returns an array of all prior elements.
+ 
+ If no block is given, an Enumerator is returned instead.
+ */
 - (id)rs_takeWhile:(BOOL(^)(id item))block;
 
 
