@@ -20,6 +20,59 @@
 
 @implementation NSArray_RubySugar_Tests
 
+- (void)test_concat_when_nil_argument_returns_self {
+    id target = @[@1, @2, @3];
+    id input = nil;
+    id expected = target;
+    
+    id result = [target:input];
+    
+    assertThat(result, sameInstance(expected));
+}
+
+- (void)test_concat_adds_objects_of_input_array {
+    id target = @[@1, @2, @3];
+    id input = @[@4, @5, @6];
+    id expected = [@1 rs_numbersTo:6];
+    
+    id result = [target:input];
+    
+    assertThat(result, hasCountOf([expected count]));
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+}
+
+- (void)test_concat_adds_single_objects {
+    id target = @[@1, @2, @3];
+    id input = @4;
+    id expected = [@1 rs_numbersTo:4];
+    
+    id result = [target:input];
+    
+    assertThat(result, hasCountOf([expected count]));
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+}
+
+
+- (void)test_shorthand_is_alias_to_keyedSubscript {
+    id input = [@0 rs_numbersTo:10];
+    id expected = input[@"1..6"];
+    
+    assertThat([input:1:6], equalTo(expected));
+}
+
+- (void)test_shorthand_is_alias_to_keyedSubscript_exclusive {
+    id input = [@0 rs_numbersTo:10];
+    id expected = input[@"1...6"];
+    
+    assertThat([input:1:6 exclusive:YES], equalTo(expected));
+}
+
 - (void)test_drop {
     id target = [@1 rs_numbersTo:10];
     id expected = [@6 rs_numbersTo:10];

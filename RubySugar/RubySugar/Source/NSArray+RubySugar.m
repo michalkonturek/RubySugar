@@ -14,15 +14,22 @@
 @implementation NSArray (RubySugar)
 
 - (instancetype):(id)object {
-    return nil;
+    if (!object) return self;
+    
+    id result = [NSMutableArray arrayWithArray:self];
+    if ([object isKindOfClass:[NSArray class]]) [result addObjectsFromArray:object];
+    else [result addObject:object];
+    
+    return result;
 }
 
 - (instancetype):(NSInteger)from :(NSInteger)to {
-    return nil;
+    return [self :from :to exclusive:NO];
 }
 
 - (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive {
-    return nil;
+    id op = (exclusive) ? @"..." : @"..";
+    return self[[NSString stringWithFormat:@"%i%@%i", from, op, to]];
 }
 
 - (instancetype)rs_drop:(NSInteger)count {
