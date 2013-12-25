@@ -40,5 +40,9 @@
  */
 - (id)rs_takeWhile:(BOOL(^)(id item))block;
 
+/**
+ Shorthand ([self count] == 0)
+ */
+- (BOOL)rs_isEmpty;
 
 @end

@@ -58,4 +58,8 @@
     return [self rs_take:count];
 }
 
+- (BOOL)rs_isEmpty {
+    return ([self count] == 0);
+}
+
 @end

@@ -128,6 +128,13 @@
     assertThat(result, instanceOf([NSEnumerator class]));
 }
 
+- (void)test_isEmpty_returns_true {
+    assertThatBool([@[] rs_isEmpty], equalToBool(YES));
+}
+
+- (void)test_isEmpty_returns_false {
+    assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
+}
 
 
 @end
