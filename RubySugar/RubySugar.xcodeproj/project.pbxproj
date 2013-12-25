@@ -150,8 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				9091E922186914C0007A196B /* NSArray+RubySugar_Tests.m */,
-				90CD033418593BD0007FCB16 /* NSString+RubySugar_Tests.m */,
 				90AE5C841861BFA500E227C4 /* NSNumber+RubySugar_Tests.m */,
+				90CD033418593BD0007FCB16 /* NSString+RubySugar_Tests.m */,
 				901B2589185792D000865ECB /* Supporting Files */,
 			);
 			path = RubySugarTests;

@@ -9,8 +9,21 @@
 #import "NSArray+RubySugar.h"
 
 #import "NSNumber+RubySugar.h"
+#import "NSString+RubySugar.h"
 
 @implementation NSArray (RubySugar)
+
+- (instancetype):(id)object {
+    return nil;
+}
+
+- (instancetype):(NSInteger)from :(NSInteger)to {
+    return nil;
+}
+
+- (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive {
+    return nil;
+}
 
 - (instancetype)rs_drop:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
@@ -60,6 +73,31 @@
 
 - (BOOL)rs_isEmpty {
     return ([self count] == 0);
+}
+
+- (id)objectForKeyedSubscript:(id<NSCopying>)key {
+    static NSString *inclusiveRange = @"..";
+    static NSString *exclusiveRange = @"...";
+    
+    if ([(id)key isKindOfClass:[NSString class]]) {
+        
+        NSRange range = NSRangeFromString((NSString *)key);
+        if ([(NSString *)key rs_containsString:exclusiveRange]) {
+            range = NSMakeRange(range.location + 1, range.length - range.location - 1);
+        } else if ([(NSString *)key rs_containsString:inclusiveRange]) {
+            range = NSMakeRange(range.location, range.length - range.location + 1);
+        }
+        
+        return [self subarrayWithRange:range];
+    } if ([(id)key isKindOfClass:[NSValue class]]) {
+        
+        NSRange range = [(NSValue *)key rangeValue];
+        range.length = 1;
+        return [self subarrayWithRange:range];
+        
+    } else @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                          reason:NSInvalidArgumentException
+                                        userInfo:nil];
 }
 
 @end

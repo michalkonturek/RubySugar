@@ -32,7 +32,7 @@
     }];
 }
 
-- (void)test_drop_throws_exception_when_negative {
+- (void)test_drop_throws_exception_when_out_of_bound {
     id target = [@1 rs_numbersTo:10];
     
     @try {
@@ -101,7 +101,7 @@
     XCTFail(@"Should raise NSInvalidArgumentException exception.");
 }
 
-- (void)test_drop_returns_self_when_count_out_of_bound {
+- (void)test_take_returns_self_when_count_out_of_bound {
     id target = [@1 rs_numbersTo:5];
     assertThat([target rs_take:10], sameInstance(target));
 }
@@ -134,6 +134,38 @@
 
 - (void)test_isEmpty_returns_false {
     assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
+}
+
+- (void)test_objectForKeydSubscript_supports_nsnumber {
+    id expected = @[@3];
+    
+    id result = [@0 rs_numbersTo:5][@3];
+    
+    assertThat(result, equalTo(expected));
+}
+
+- (void)test_objectForKeydSubscript_supports_range_exclusive {
+    id expected = @[@3, @4];
+    
+    id result = [@0 rs_numbersTo:5][@"2...5"];
+    
+    assertThat(result, hasCountOf([expected count]));
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+}
+
+- (void)test_objectForKeydSubscript_supports_range_inclusive {
+    id expected = @[@2, @3, @4, @5];
+    
+    id result = [@0 rs_numbersTo:5][@"2..5"];
+    
+    assertThat(result, hasCountOf([expected count]));
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
 }
 
 

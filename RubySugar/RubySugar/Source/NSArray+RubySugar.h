@@ -11,6 +11,23 @@
 @interface NSArray (RubySugar)
 
 /**
+ Returns new array by concatenating array with input object.
+ 
+ Every object that responds to description selector is appended.
+ */
+- (instancetype):(id)object;
+
+/**
+ Returns self[@"<from>..<to>"]
+ */
+- (instancetype):(NSInteger)from :(NSInteger)to;
+
+/**
+ Returns self[@"<from>..<to>"] or self[@"<from>...<to>"] if exclusive.
+ */
+- (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
+
+/**
  Drops first n elements from ary and returns the rest of the elements in an array.
  If a negative number is given, raises an ArgumentError.
  */
@@ -44,5 +61,7 @@
  Shorthand ([self count] == 0)
  */
 - (BOOL)rs_isEmpty;
+
+- (id)objectForKeyedSubscript:(id<NSCopying>)key;
 
 @end
