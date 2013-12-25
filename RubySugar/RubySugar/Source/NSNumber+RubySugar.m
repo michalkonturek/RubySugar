@@ -12,20 +12,27 @@
 
 - (instancetype)rs_gcd:(NSInteger)other {
     if (other == 0) return self;
-    return [@(other) rs_gcd:([self integerValue] % other)];
+    id result = [@(other) rs_gcd:([self integerValue] % other)];
+    return [self _wrap:result];
 }
 
 - (instancetype)rs_lcm:(NSInteger)other {
     if (([self integerValue] == 0) && (other == 0)) return @0;
-    return @(abs([self integerValue] * other) / [[self rs_gcd:other] integerValue]);
+    id result =  @(abs([self integerValue] * other) / [[self rs_gcd:other] integerValue]);
+    return [self _wrap:result];
 }
 
 - (instancetype)rs_next {
-    return @([self integerValue] + 1);
+    return [self _wrap:@([self integerValue] + 1)];
 }
 
 - (instancetype)rs_pred {
-    return @([self integerValue] - 1);
+    return [self _wrap:@([self integerValue] - 1)];
+}
+
+- (instancetype)_wrap:(id)input {
+    if ([input isMemberOfClass:[NSNumber class]]) return input;
+    return [NSDecimalNumber decimalNumberWithDecimal:[input decimalValue]];
 }
 
 - (id)rs_times:(void(^)(void))block {
