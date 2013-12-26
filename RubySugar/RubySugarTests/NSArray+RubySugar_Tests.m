@@ -58,7 +58,6 @@
     }];
 }
 
-
 - (void)test_shorthand_is_alias_to_keyedSubscript {
     id input = [@0 rs_numbersTo:10];
     id expected = input[@"1..6"];
@@ -71,6 +70,23 @@
     id expected = input[@"1...6"];
     
     assertThat([input:1:6 exclusive:YES], equalTo(expected));
+}
+
+- (void)test_clear {
+    id target = @[@1, @2];
+    assertThat([target rs_clear], hasCountOf(0));
+}
+
+- (void)test_compact {
+    id target = @[@1, [NSNull null], @3, @"w", [NSNull null], @"!"];
+    id expected = @[@1, @3, @"w", @"!"];
+    
+    id result = [target rs_compact];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
 }
 
 - (void)test_drop {
@@ -125,6 +141,31 @@
     id result = [target rs_dropWhile:nil];
     
     assertThat(result, instanceOf([NSEnumerator class]));
+}
+
+- (void)test_join {
+    id target = [@1 rs_numbersTo:5];
+    id expected = @"1-2-3-4-5";
+    
+    assertThat([target rs_join:@"-"], equalTo(expected));
+}
+
+- (void)test_join_when_separator_nil_an_empty_string_is_used {
+    id target = [@1 rs_numbersTo:5];
+    id expected = @"12345";
+    
+    assertThat([target rs_join:nil], equalTo(expected));
+}
+
+- (void)test_reverse {
+    id target = [@1 rs_numbersTo:5];
+    id expected = [@5 rs_numbersTo:1];
+    
+    id result = [target rs_reverse];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+    assertThat(result, hasCountOf([expected count]));
 }
 
 - (void)test_take {
@@ -189,6 +230,29 @@
     assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
 }
 
+- (void)test_uniq {
+    id target = @[@1, @2, @1, @"w", @"a", @"w"];
+    id expected = @[@1, @2, @"a", @"w"];
+    
+    id result = [target rs_uniq];
+    
+    assertThat(result, hasCountOf([expected count]));
+    assertThat(result, containsInAnyOrder(@1, @2, @"a", @"w", nil));
+}
+
+- (void)test_uniq_with_block {
+    id target = @[@[@"student", @"sam"], @[@"student", @"george"], @[@"teacher", @"matz"]];
+    id expected = @[@[@"student", @"sam"] , @[@"teacher", @"matz"]];
+    
+    id result = [target rs_uniq:^id(id item) {
+        return [item firstObject];
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
+    assertThat(result, containsInAnyOrder(@[@"student", @"sam"] , @[@"teacher", @"matz"], nil));
+}
+
+
 - (void)test_objectForKeydSubscript_supports_nsnumber {
     id expected = @[@3];
     
@@ -220,6 +284,5 @@
         assertThat(obj, equalTo(expected[idx]));
     }];
 }
-
 
 @end

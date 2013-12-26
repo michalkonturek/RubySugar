@@ -23,8 +23,6 @@ script: make ci
 #xctool -arch i386 ONLY_ACTIVE_ARCH=NO clean build test
 
 # script: xctool -arch i386 ONLY_ACTIVE_ARCH=NO clean build test -freshSimulator -freshInstall
-# script: xctool clean build test -arch i386 ONLY_ACTIVE_ARCH=NO
-# script: xctool clean build test 
 
 notifications:
     email: false

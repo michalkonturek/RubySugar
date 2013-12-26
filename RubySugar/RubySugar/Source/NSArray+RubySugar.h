@@ -28,6 +28,16 @@
 - (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
 
 /**
+ Returns an empty array.
+ */
+- (instancetype)rs_clear;
+
+/**
+ Returns a copy of self with all nil elements removed.
+ */
+- (instancetype)rs_compact;
+
+/**
  Drops first n elements from ary and returns the rest of the elements in an array.
  If a negative number is given, raises an ArgumentError.
  */
@@ -41,10 +51,42 @@
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
+/**
+ Returns a new array that is a one-dimensional flattening of self (recursively).
+ That is, for every element that is an array, extract its elements into the new array.
+ */
+- (instancetype)rs_flatten;
+
+/**
+ Returns a new array that is a one-dimensional flattening of self (recursively).
+ That is, for every element that is an array, extract its elements into the new array.
+ The optional level argument determines the level of recursion to flatten.
+ */
+- (instancetype)rs_flatten:(NSInteger)level;
+
+/**
+ Shorthand ([self count] == 0)
+ */
+- (BOOL)rs_isEmpty;
+
+/**
+ Shorthand [rs_join:nil]
+ */
+- (NSString *)rs_join;
+
+/**
+ Returns a string created by converting each element of the array to a string, 
+ separated by the given separator. If the separator is nil, it uses empty string.
+ */
+- (NSString *)rs_join:(NSString *)separator;
+
+/**
+ Returns a new array containing self‘s elements in reverse order.
+ */
+- (instancetype)rs_reverse;
 
 /**
  Returns first n elements from the array.
- 
  If a negative number is given, raises an ArgumentError.
  */
 - (instancetype)rs_take:(NSInteger)count;
@@ -58,9 +100,17 @@
 - (id)rs_takeWhile:(BOOL(^)(id item))block;
 
 /**
- Shorthand ([self count] == 0)
+ Returns a new array by removing duplicate values in self.
+ If a block is given, it will use the return value of the block for comparison.
  */
-- (BOOL)rs_isEmpty;
+- (instancetype)rs_uniq;
+
+/**
+ Returns a new array by removing duplicate values in self.
+ If a block is given, it will use the return value of the block for comparison.
+ */
+- (instancetype)rs_uniq:(id(^)(id item))block;
+
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
 
