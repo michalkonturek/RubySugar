@@ -15,8 +15,7 @@ build:
 		$(TASK) build | xcpretty -c
 
 test:
-		$(TASK) test | xcpretty -tc
-		# $(TASK) test | xcpretty -c
+		$(TASK) clean build test | xcpretty -tc
 
 ci:
 		$(TASK) clean build test | xcpretty -c
