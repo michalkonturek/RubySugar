@@ -46,22 +46,6 @@
     return result;
 }
 
-- (instancetype)rs_flatten {
-    return [self rs_flatten:-1];
-}
-
-- (instancetype)rs_flatten:(NSInteger)level {
-    id result = [NSMutableArray array];
-    
-    for (id item in self) {
-        if (level == 0) [result addObject:item];
-        else if (![item isKindOfClass:[NSArray class]]) [result addObject:item];
-        else [result addObjectsFromArray:[item rs_flatten:(level - 1)]];
-    }
-    
-    return result;
-}
-
 - (instancetype)rs_drop:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
                                                   reason:NSInvalidArgumentException
@@ -83,6 +67,26 @@
     }
     
     return [self rs_drop:count];
+}
+
+- (instancetype)rs_flatten {
+    return [self rs_flatten:-1];
+}
+
+- (instancetype)rs_flatten:(NSInteger)level {
+    id result = [NSMutableArray array];
+    
+    for (id item in self) {
+        if (level == 0) [result addObject:item];
+        else if (![item isKindOfClass:[NSArray class]]) [result addObject:item];
+        else [result addObjectsFromArray:[item rs_flatten:(level - 1)]];
+    }
+    
+    return result;
+}
+
+- (BOOL)rs_isEmpty {
+    return ([self count] == 0);
 }
 
 - (NSString *)rs_join {
@@ -132,9 +136,49 @@
     return [self rs_take:count];
 }
 
-- (BOOL)rs_isEmpty {
-    return ([self count] == 0);
+- (instancetype)rs_uniq {
+//    return [[[NSOrderedSet orderedSetWithArray:self] set] allObjects];
+    return [self rs_uniq:nil];
 }
+
+- (instancetype)rs_uniq:(id(^)(id item))block {
+    id result = [NSMutableArray array];
+    
+    for (id item in self) {
+        if (!block) {
+            if (![result containsObject:item]) [result addObject:item];
+        }
+        else {
+            if (![result mk_any:^BOOL(id obj) {
+                return [block(obj) isEqual:block(item)];
+            }]) {
+                [result addObject:item];
+            }
+        }
+    }
+    
+    return result;
+}
+
+//- (instancetype)rs_uniq:(id(^)(id item))block {
+//    id result = [NSMutableArray array];
+//    
+//    for (id item in self) {
+//        if (![result containsObject:item]) [result addObject:item];
+//    }
+//    
+//    return result;
+//}
+
+- (BOOL)mk_any:(BOOL (^)(id item))conditionBlock {
+    if (!conditionBlock) return NO;
+    for (id item in self) {
+        if (conditionBlock(item)) return YES;
+    }
+    return NO;
+}
+
+
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {
     static NSString *inclusiveRange = @"..";

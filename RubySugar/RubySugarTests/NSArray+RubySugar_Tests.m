@@ -89,30 +89,6 @@
     assertThat(result, hasCountOf([expected count]));
 }
 
-- (void)test_flatten {
-    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
-    id expected = @[@1, @2, @3, @4, @5, @6];
-    
-    id result = [target rs_flatten];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
-    }];
-    
-    assertThat(result, hasCountOf([expected count]));
-}
-
-- (void)test_flatten_when_level_1 {
-    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
-    id expected = @[@1, @2, @3, @4, @[@5, @6]];
-    
-    id result = [target rs_flatten:1];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
-    }];
-    
-    assertThat(result, hasCountOf([expected count]));
-}
-
 - (void)test_drop {
     id target = [@1 rs_numbersTo:10];
     id expected = [@6 rs_numbersTo:10];
@@ -189,7 +165,7 @@
     [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         assertThat(obj, equalTo(expected[idx]));
     }];
-    assertThat(result, hasCountOf(5));
+    assertThat(result, hasCountOf([expected count]));
 }
 
 - (void)test_take {
@@ -254,6 +230,29 @@
     assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
 }
 
+- (void)test_uniq {
+    id target = @[@1, @2, @1, @"w", @"a", @"w"];
+    id expected = @[@1, @2, @"a", @"w"];
+    
+    id result = [target rs_uniq];
+    
+    assertThat(result, hasCountOf([expected count]));
+    assertThat(result, containsInAnyOrder(@1, @2, @"a", @"w", nil));
+}
+
+- (void)test_uniq_with_block {
+    id target = @[@[@"student", @"sam"], @[@"student", @"george"], @[@"teacher", @"matz"]];
+    id expected = @[@[@"student", @"sam"] , @[@"teacher", @"matz"]];
+    
+    id result = [target rs_uniq:^id(id item) {
+        return [item firstObject];
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
+    assertThat(result, containsInAnyOrder(@[@"student", @"sam"] , @[@"teacher", @"matz"], nil));
+}
+
+
 - (void)test_objectForKeydSubscript_supports_nsnumber {
     id expected = @[@3];
     
@@ -286,5 +285,5 @@
     }];
 }
 
-
 @end
+

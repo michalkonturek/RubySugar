@@ -38,19 +38,6 @@
 - (instancetype)rs_compact;
 
 /**
- Returns a new array that is a one-dimensional flattening of self (recursively).
- That is, for every element that is an array, extract its elements into the new array.
- */
-- (instancetype)rs_flatten;
-
-/**
- Returns a new array that is a one-dimensional flattening of self (recursively).
- That is, for every element that is an array, extract its elements into the new array.
- The optional level argument determines the level of recursion to flatten.
- */
-- (instancetype)rs_flatten:(NSInteger)level;
-
-/**
  Drops first n elements from ary and returns the rest of the elements in an array.
  If a negative number is given, raises an ArgumentError.
  */
@@ -63,6 +50,19 @@
  If no block is given, an Enumerator is returned instead.
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
+
+/**
+ Returns a new array that is a one-dimensional flattening of self (recursively).
+ That is, for every element that is an array, extract its elements into the new array.
+ */
+- (instancetype)rs_flatten;
+
+/**
+ Returns a new array that is a one-dimensional flattening of self (recursively).
+ That is, for every element that is an array, extract its elements into the new array.
+ The optional level argument determines the level of recursion to flatten.
+ */
+- (instancetype)rs_flatten:(NSInteger)level;
 
 /**
  Shorthand ([self count] == 0)
@@ -98,6 +98,18 @@
  If no block is given, an Enumerator is returned instead.
  */
 - (id)rs_takeWhile:(BOOL(^)(id item))block;
+
+/**
+ Returns a new array by removing duplicate values in self.
+ If a block is given, it will use the return value of the block for comparison.
+ */
+- (instancetype)rs_uniq;
+
+/**
+ Returns a new array by removing duplicate values in self.
+ If a block is given, it will use the return value of the block for comparison.
+ */
+- (instancetype)rs_uniq:(id(^)(id item))block;
 
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
