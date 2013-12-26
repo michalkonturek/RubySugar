@@ -141,6 +141,17 @@
     assertThat([target rs_join:nil], equalTo(expected));
 }
 
+- (void)test_reverse {
+    id target = [@1 rs_numbersTo:5];
+    id expected = [@5 rs_numbersTo:1];
+    
+    id result = [target rs_reverse];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+    assertThat(result, hasCountOf(5));
+}
+
 - (void)test_take {
     id target = [@1 rs_numbersTo:10];
     id expected = [@1 rs_numbersTo:5];

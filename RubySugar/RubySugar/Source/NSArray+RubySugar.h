@@ -46,6 +46,11 @@
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
 /**
+ Shorthand ([self count] == 0)
+ */
+- (BOOL)rs_isEmpty;
+
+/**
  Shorthand [rs_join:nil]
  */
 - (NSString *)rs_join;
@@ -57,8 +62,12 @@
 - (NSString *)rs_join:(NSString *)separator;
 
 /**
+ Returns a new array containing self‘s elements in reverse order.
+ */
+- (instancetype)rs_reverse;
+
+/**
  Returns first n elements from the array.
- 
  If a negative number is given, raises an ArgumentError.
  */
 - (instancetype)rs_take:(NSInteger)count;
@@ -71,10 +80,6 @@
  */
 - (id)rs_takeWhile:(BOOL(^)(id item))block;
 
-/**
- Shorthand ([self count] == 0)
- */
-- (BOOL)rs_isEmpty;
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
 

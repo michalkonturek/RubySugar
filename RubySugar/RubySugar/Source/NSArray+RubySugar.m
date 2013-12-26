@@ -78,6 +78,15 @@
     return result;
 }
 
+- (instancetype)rs_reverse {
+    id result = [NSMutableArray arrayWithCapacity:[self count]];
+    id enumerator = [self reverseObjectEnumerator];
+    for (id item in enumerator) {
+        [result addObject:item];
+    }
+    return result;
+}
+
 - (instancetype)rs_take:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
                                                   reason:NSInvalidArgumentException
