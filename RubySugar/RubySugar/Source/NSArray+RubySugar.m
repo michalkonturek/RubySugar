@@ -32,6 +32,14 @@
     return self[[NSString stringWithFormat:@"%i%@%i", from, op, to]];
 }
 
+- (instancetype)rs_compact {
+    return nil;
+}
+
+- (instancetype)rs_flatten {
+    return nil;
+}
+
 - (instancetype)rs_drop:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
                                                   reason:NSInvalidArgumentException

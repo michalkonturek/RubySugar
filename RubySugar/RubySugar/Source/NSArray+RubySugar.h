@@ -27,6 +27,10 @@
  */
 - (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
 
+- (instancetype)rs_compact;
+
+- (instancetype)rs_flatten;
+
 /**
  Drops first n elements from ary and returns the rest of the elements in an array.
  If a negative number is given, raises an ArgumentError.
