@@ -27,8 +27,15 @@
  */
 - (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
 
+/**
+ Returns an empty array.
+ */
+- (instancetype)rs_clear;
+
+/***/
 - (instancetype)rs_compact;
 
+/***/
 - (instancetype)rs_flatten;
 
 /**

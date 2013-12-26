@@ -32,6 +32,10 @@
     return self[[NSString stringWithFormat:@"%i%@%i", from, op, to]];
 }
 
+- (instancetype)rs_clear {
+    return [[self class] array];
+}
+
 - (instancetype)rs_compact {
     return nil;
 }

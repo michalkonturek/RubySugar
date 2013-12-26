@@ -73,6 +73,19 @@
     assertThat([input:1:6 exclusive:YES], equalTo(expected));
 }
 
+- (void)test_clear {
+    id target = @[@1, @2];
+    assertThat([target rs_clear], hasCountOf(0));
+}
+
+- (void)test_compact {
+    
+}
+
+- (void)test_flatten {
+    
+}
+
 - (void)test_drop {
     id target = [@1 rs_numbersTo:10];
     id expected = [@6 rs_numbersTo:10];
