@@ -55,6 +55,17 @@
     assertThat([input rs_gcd:[target integerValue]], equalTo(expected));
 }
 
+- (void)test_gcd_supports_nsdecimalnumber {
+    id target = [NSDecimalNumber decimalNumberWithDecimal:[@1071 decimalValue]];
+    id input = @462;
+    id expected = @21;
+    
+    id result = [target rs_gcd:[input integerValue]];
+    
+    assertThat(result, instanceOf([NSDecimalNumber class]));
+    assertThat(result, equalTo(expected));
+}
+
 - (void)test_lcm {
     id target = @1071;
     id input = @462;
@@ -100,6 +111,17 @@
     assertThat([input rs_lcm:[target integerValue]], equalTo(expected));
 }
 
+- (void)test_lcm_supports_nsdecimalnumber {
+    id target = [NSDecimalNumber decimalNumberWithDecimal:[@1071 decimalValue]];
+    id input = @462;
+    id expected = @23562;
+    
+    id result = [target rs_lcm:[input integerValue]];
+    
+    assertThat(result, instanceOf([NSDecimalNumber class]));
+    assertThat(result, equalTo(expected));
+}
+
 - (void)test_next {
     id input = @1;
     id expected = @2;
@@ -109,6 +131,16 @@
     assertThat(result, equalTo(expected));
 }
 
+- (void)test_next_supports_nsdecimalnumber {
+    id input = [NSDecimalNumber one];
+    id expected = @2;
+    
+    id result = [input rs_next];
+    
+    assertThat(result, equalTo(expected));
+    assertThat(result, instanceOf([NSDecimalNumber class]));
+}
+
 - (void)test_pred {
     id input = @2;
     id expected = @1;
@@ -116,6 +148,16 @@
     id result = [input rs_pred];
     
     assertThat(result, equalTo(expected));
+}
+
+- (void)test_pred_supports_nsdecimalnumber {
+    id input = [NSDecimalNumber one];
+    id expected = @0;
+    
+    id result = [input rs_pred];
+    
+    assertThat(result, equalTo(expected));
+    assertThat(result, instanceOf([NSDecimalNumber class]));
 }
 
 - (void)test_times_returns_self {
