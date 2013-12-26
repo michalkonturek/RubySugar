@@ -32,7 +32,9 @@
  */
 - (instancetype)rs_clear;
 
-/***/
+/**
+ Returns a copy of self with all nil elements removed.
+ */
 - (instancetype)rs_compact;
 
 /***/

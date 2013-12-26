@@ -37,7 +37,13 @@
 }
 
 - (instancetype)rs_compact {
-    return nil;
+    id result = [NSMutableArray arrayWithCapacity:self.count];
+    
+    for (id item in self) {
+        if (![item isEqual:[NSNull null]]) [result addObject:item];
+    }
+    
+    return result;
 }
 
 - (instancetype)rs_flatten {

@@ -58,7 +58,6 @@
     }];
 }
 
-
 - (void)test_shorthand_is_alias_to_keyedSubscript {
     id input = [@0 rs_numbersTo:10];
     id expected = input[@"1..6"];
@@ -79,7 +78,15 @@
 }
 
 - (void)test_compact {
+    id target = @[@1, [NSNull null], @3, @"w", [NSNull null], @"!"];
+    id expected = @[@1, @3, @"w", @"!"];
     
+    id result = [target rs_compact];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
 }
 
 - (void)test_flatten {
