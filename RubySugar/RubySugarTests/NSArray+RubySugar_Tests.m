@@ -127,6 +127,20 @@
     assertThat(result, instanceOf([NSEnumerator class]));
 }
 
+- (void)test_join {
+    id target = [@1 rs_numbersTo:5];
+    id expected = @"1-2-3-4-5";
+    
+    assertThat([target rs_join:@"-"], equalTo(expected));
+}
+
+- (void)test_join_when_separator_nil_an_empty_string_is_used {
+    id target = [@1 rs_numbersTo:5];
+    id expected = @"12345";
+    
+    assertThat([target rs_join:nil], equalTo(expected));
+}
+
 - (void)test_take {
     id target = [@1 rs_numbersTo:10];
     id expected = [@1 rs_numbersTo:5];

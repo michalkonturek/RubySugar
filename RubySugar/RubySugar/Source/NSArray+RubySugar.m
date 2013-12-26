@@ -63,6 +63,21 @@
     return [self rs_drop:count];
 }
 
+- (NSString *)rs_join {
+    return [self rs_join:nil];
+}
+
+- (NSString *)rs_join:(NSString *)separator {
+    if (!separator) separator = @"";
+    
+    __block id result = nil;
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (idx == 0) result = [obj description];
+        else result = [NSString stringWithFormat:@"%@%@%@", result, separator, obj];
+    }];
+    return result;
+}
+
 - (instancetype)rs_take:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
                                                   reason:NSInvalidArgumentException

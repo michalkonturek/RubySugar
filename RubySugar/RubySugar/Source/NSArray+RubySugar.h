@@ -45,6 +45,16 @@
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
+/**
+ Shorthand [rs_join:nil]
+ */
+- (NSString *)rs_join;
+
+/**
+ Returns a string created by converting each element of the array to a string, 
+ separated by the given separator. If the separator is nil, it uses empty string.
+ */
+- (NSString *)rs_join:(NSString *)separator;
 
 /**
  Returns first n elements from the array.
