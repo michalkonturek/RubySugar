@@ -137,7 +137,6 @@
 }
 
 - (instancetype)rs_uniq {
-//    return [[[NSOrderedSet orderedSetWithArray:self] set] allObjects];
     return [self rs_uniq:nil];
 }
 
@@ -160,16 +159,6 @@
     return result;
 }
 
-//- (instancetype)rs_uniq:(id(^)(id item))block {
-//    id result = [NSMutableArray array];
-//    
-//    for (id item in self) {
-//        if (![result containsObject:item]) [result addObject:item];
-//    }
-//    
-//    return result;
-//}
-
 - (BOOL)mk_any:(BOOL (^)(id item))conditionBlock {
     if (!conditionBlock) return NO;
     for (id item in self) {
@@ -177,8 +166,6 @@
     }
     return NO;
 }
-
-
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {
     static NSString *inclusiveRange = @"..";
