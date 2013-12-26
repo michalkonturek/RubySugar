@@ -90,7 +90,27 @@
 }
 
 - (void)test_flatten {
+    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
+    id expected = @[@1, @2, @3, @4, @5, @6];
     
+    id result = [target rs_flatten];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_flatten_when_level_1 {
+    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
+    id expected = @[@1, @2, @3, @4, @[@5, @6]];
+    
+    id result = [target rs_flatten:1];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
 }
 
 - (void)test_drop {

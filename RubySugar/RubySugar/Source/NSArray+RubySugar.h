@@ -37,8 +37,18 @@
  */
 - (instancetype)rs_compact;
 
-/***/
+/**
+ Returns a new array that is a one-dimensional flattening of self (recursively).
+ That is, for every element that is an array, extract its elements into the new array.
+ */
 - (instancetype)rs_flatten;
+
+/**
+ Returns a new array that is a one-dimensional flattening of self (recursively).
+ That is, for every element that is an array, extract its elements into the new array.
+ The optional level argument determines the level of recursion to flatten.
+ */
+- (instancetype)rs_flatten:(NSInteger)level;
 
 /**
  Drops first n elements from ary and returns the rest of the elements in an array.
