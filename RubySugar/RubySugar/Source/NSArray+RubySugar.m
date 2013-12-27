@@ -105,12 +105,7 @@
 }
 
 - (instancetype)rs_reverse {
-    id result = [NSMutableArray arrayWithCapacity:[self count]];
-    id enumerator = [self reverseObjectEnumerator];
-    for (id item in enumerator) {
-        [result addObject:item];
-    }
-    return result;
+    return [[self reverseObjectEnumerator] allObjects];
 }
 
 - (id)rs_sample {
