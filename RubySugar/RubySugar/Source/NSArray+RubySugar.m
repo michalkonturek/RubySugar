@@ -126,10 +126,7 @@
     id indices = [NSMutableIndexSet indexSet];
     while (YES) {
         NSInteger index = arc4random_uniform([self count]);
-//        if ([indices containsIndex:index]) continue;
         [indices addIndex:index];
-//        count--;
-//        if (count == 0) break;
         if ([indices count] == count) break;
     }
 
