@@ -143,6 +143,14 @@
     assertThat(result, instanceOf([NSEnumerator class]));
 }
 
+- (void)test_isEmpty_returns_true {
+    assertThatBool([@[] rs_isEmpty], equalToBool(YES));
+}
+
+- (void)test_isEmpty_returns_false {
+    assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
+}
+
 - (void)test_join {
     id target = [@1 rs_numbersTo:5];
     id expected = @"1-2-3-4-5";
@@ -222,12 +230,45 @@
     assertThat(result, instanceOf([NSEnumerator class]));
 }
 
-- (void)test_isEmpty_returns_true {
-    assertThatBool([@[] rs_isEmpty], equalToBool(YES));
+- (void)test_sample_returns_nil_when_array_is_empty {
+    assertThat([@[] rs_sample], nilValue());
 }
 
-- (void)test_isEmpty_returns_false {
-    assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
+- (void)test_sample_returns_an_element {
+    id target = @[@1, @2, @"s", @3];
+    
+    id result = [target rs_sample];
+
+    assertThat(result, isNot(nilValue()));
+    assertThat(target, hasItem(result));
+}
+
+- (void)test_sample_with_param_returns_empty_array_when_empty {
+    assertThat([@[] rs_sample:1], equalTo(@[]));
+}
+
+- (void)test_sample_with_param_returns_n_elements {
+    id target = @[@1, @2, @"s", @3, @4];
+    NSInteger input = 3;
+    
+    id result = [target rs_sample:input];
+    
+    assertThat(result, hasCountOf(input));
+    for (id item in result) {
+        assertThat(target, hasItem(item));
+    }
+}
+
+- (void)test_sample_with_param_returns_all_elements_when_n_larger_than_count {
+    id target = @[@1, @2, @"s", @3, @4];
+    NSInteger input = 100;
+    
+    id result = [target rs_sample:input];
+    
+    assertThat(result, hasCountOf([target count]));
+    for (id item in result) {
+        assertThat(target, hasItem(item));
+    }
 }
 
 - (void)test_uniq {

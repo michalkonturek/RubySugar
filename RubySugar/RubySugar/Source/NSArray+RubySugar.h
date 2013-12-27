@@ -86,6 +86,17 @@
 - (instancetype)rs_reverse;
 
 /**
+ Returns a random element from the array or nil in case array is empty.
+ */
+- (id)rs_sample;
+
+/**
+ Returns an array of n random element from the array.
+ Returns an empty array in case a target array is empty.
+ */
+- (instancetype)rs_sample:(NSUInteger)count;
+
+/**
  Returns first n elements from the array.
  If a negative number is given, raises an ArgumentError.
  */

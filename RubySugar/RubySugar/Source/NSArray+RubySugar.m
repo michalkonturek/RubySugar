@@ -113,6 +113,34 @@
     return result;
 }
 
+- (id)rs_sample {
+    if ([self rs_isEmpty]) return nil;
+    else return self[arc4random_uniform([self count])];
+}
+
+- (instancetype)rs_sample:(NSUInteger)count {
+    if ([self rs_isEmpty]) return self;
+    
+    if (count > self.count) count = self.count; // R: return shuffeld
+    
+    id indices = [NSMutableIndexSet indexSet];
+    while (YES) {
+        NSInteger index = arc4random_uniform([self count]);
+//        if ([indices containsIndex:index]) continue;
+        [indices addIndex:index];
+//        count--;
+//        if (count == 0) break;
+        if ([indices count] == count) break;
+    }
+
+    id result = [NSMutableArray arrayWithCapacity:[indices count]];
+    [indices enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [result addObject:self[idx]];
+    }];
+
+    return result;
+}
+
 - (instancetype)rs_take:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
                                                   reason:NSInvalidArgumentException
