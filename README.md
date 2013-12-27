@@ -18,15 +18,50 @@ Source code of this project is available under the standard MIT license. Please 
 
 # API
 
-<!--
-## NSArray
+## `NSArray`
 
 ```obj-c
+- (instancetype):(id)object;
+
+- (instancetype):(NSInteger)from :(NSInteger)to;
+
+- (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
+
+- (instancetype)rs_clear;
+
+- (instancetype)rs_compact;
+
+- (instancetype)rs_drop:(NSInteger)count;
+
+- (id)rs_dropWhile:(BOOL(^)(id item))block;
+
+- (instancetype)rs_flatten;
+
+- (instancetype)rs_flatten:(NSInteger)level;
+
+- (BOOL)rs_isEmpty;
+
+- (NSString *)rs_join;
+
+- (NSString *)rs_join:(NSString *)separator;
+
+- (instancetype)rs_reverse;
+
+- (id)rs_sample;
+
+- (instancetype)rs_sample:(NSUInteger)count;
+
+- (instancetype)rs_take:(NSInteger)count;
+
+- (id)rs_takeWhile:(BOOL(^)(id item))block;
+
+- (instancetype)rs_uniq;
+
+- (instancetype)rs_uniq:(id(^)(id item))block;
 ```
--->
 
 
-## NSNumber
+## `NSNumber`
 
  
 ```objc
@@ -39,7 +74,7 @@ Source code of this project is available under the standard MIT license. Please 
 - (instancetype)rs_pred;
 
 - (id)rs_times:(void(^)(void))block;
-- 
+
 - (id)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
@@ -49,7 +84,7 @@ Source code of this project is available under the standard MIT license. Please 
 - (NSArray *)rs_numbersTo:(NSInteger)to;
 ```
 
-## NSString
+## `NSString`
 
 ```obj-c
 
