@@ -82,11 +82,74 @@
     id expected = @[@1, @3, @"w", @"!"];
     
     id result = [target rs_compact];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
     
     assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_delete_returns_self_when_no_matching_item {
+    id target = @[@1, @2, @3];
+    id result = [target rs_delete:@4];
+    assertThat(result, sameInstance(target));
+}
+
+- (void)test_delete_returns_array_without_objects_equal_to_removed {
+    id target = @[@1, @1, @2, @3];
+    id expected = @[@2, @3];
+    id input = @1;
+    
+    id result = [target rs_delete:input];
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
+    }];
+}
+
+- (void)test_deleteAt_returns_self_when_index_out_of_range {
+    id target = @[@1, @2, @3];
+    id result = [target rs_deleteAt:100];
+    assertThat(result, sameInstance(target));
+}
+
+- (void)test_deleteAt_retruns_array_without_deleted_object {
+    id target = @[@0, @1, @2, @3];
+    id expected = @[@0, @2, @3];
+    NSInteger input = 1;
+    
+    id result = [target rs_deleteAt:input];
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
+    }];
+}
+
+- (void)test_deleteAt_supports_negative_index {
+    id target = @[@0, @1, @2, @3, @4];
+    id expected = @[@0, @1, @2, @3];
+    NSInteger input = -1;
+    
+    id result = [target rs_deleteAt:input];
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
+    }];
+}
+
+- (void)test_deleteIf_returns_enumerator_when_block_is_nil {
+    id result = [@[] rs_deleteIf:nil];
+    assertThat(result, instanceOf([NSEnumerator class]));
+}
+
+- (void)test_deleteIf_returns_array_without_deleted_objects {
+    id target = @[@0, @1, @2, @3, @4];
+    id expected = @[@0, @1, @2];
+    
+    id result = [target rs_deleteIf:^BOOL(id item) {
+        return ([item integerValue] > 2);
+    }];
+    
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
+    }];
 }
 
 - (void)test_drop {
@@ -96,8 +159,8 @@
     id result = [target rs_drop:5];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -130,8 +193,8 @@
     }];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -141,6 +204,48 @@
     id result = [target rs_dropWhile:nil];
     
     assertThat(result, instanceOf([NSEnumerator class]));
+}
+
+- (void)test_fetch_mirrors_objectAtIndex {
+    id target = @[@1, @2, @3];
+    assertThat([target rs_fetch:1], equalTo([target objectAtIndex:1]));
+}
+
+- (void)test_flatten {
+    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
+    id expected = @[@1, @2, @3, @4, @5, @6];
+    
+    id result = [target rs_flatten];
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            assertThat(obj, equalTo(result[idx]));
+        }];
+    
+    assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_flatten_when_level_1 {
+    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
+    id expected = @[@1, @2, @3, @4, @[@5, @6]];
+    
+    id result = [target rs_flatten:1];
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_includes_mirrors_containsObject {
+    id target = @[@1, @2, @3];
+    assertThatBool([target rs_includes:@2], equalToBool([target containsObject:@2]));
+}
+
+- (void)test_isEmpty_returns_true {
+    assertThatBool([@[] rs_isEmpty], equalToBool(YES));
+}
+
+- (void)test_isEmpty_returns_false {
+    assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
 }
 
 - (void)test_join {
@@ -154,7 +259,7 @@
     id target = [@1 rs_numbersTo:5];
     id expected = @"12345";
     
-    assertThat([target rs_join:nil], equalTo(expected));
+    assertThat([target rs_join], equalTo(expected));
 }
 
 - (void)test_reverse {
@@ -162,10 +267,51 @@
     id expected = [@5 rs_numbersTo:1];
     
     id result = [target rs_reverse];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
     assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_sample_returns_nil_when_array_is_empty {
+    assertThat([@[] rs_sample], nilValue());
+}
+
+- (void)test_sample_returns_an_element {
+    id target = @[@1, @2, @"s", @3];
+    
+    id result = [target rs_sample];
+
+    assertThat(result, isNot(nilValue()));
+    assertThat(target, hasItem(result));
+}
+
+- (void)test_sample_with_param_returns_empty_array_when_empty {
+    assertThat([@[] rs_sample:1], equalTo(@[]));
+}
+
+- (void)test_sample_with_param_returns_n_elements {
+    id target = @[@1, @2, @"s", @3, @4];
+    NSInteger input = 3;
+    
+    id result = [target rs_sample:input];
+    
+    assertThat(result, hasCountOf(input));
+    for (id item in result) {
+        assertThat(target, hasItem(item));
+    }
+}
+
+- (void)test_sample_with_param_returns_all_elements_when_n_larger_than_count {
+    id target = @[@1, @2, @"s", @3, @4];
+    NSInteger input = 100;
+    
+    id result = [target rs_sample:input];
+    
+    assertThat(result, hasCountOf([target count]));
+    for (id item in result) {
+        assertThat(target, hasItem(item));
+    }
 }
 
 - (void)test_take {
@@ -175,8 +321,8 @@
     id result = [target rs_take:5];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -209,8 +355,8 @@
     }];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -220,14 +366,6 @@
     id result = [target rs_takeWhile:nil];
     
     assertThat(result, instanceOf([NSEnumerator class]));
-}
-
-- (void)test_isEmpty_returns_true {
-    assertThatBool([@[] rs_isEmpty], equalToBool(YES));
-}
-
-- (void)test_isEmpty_returns_false {
-    assertThatBool([@[@1] rs_isEmpty], equalToBool(NO));
 }
 
 - (void)test_uniq {
@@ -268,8 +406,8 @@
     
     assertThat(result, hasCountOf([expected count]));
     
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -280,8 +418,8 @@
     
     assertThat(result, hasCountOf([expected count]));
     
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 

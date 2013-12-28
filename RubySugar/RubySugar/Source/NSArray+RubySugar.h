@@ -38,6 +38,23 @@
 - (instancetype)rs_compact;
 
 /**
+ Returns array without all items that are equal to object.
+ */
+- (instancetype)rs_delete:(id)object;
+
+/**
+ Returns array without the element at index.
+ If index is negative, removes from back.
+ */
+- (instancetype)rs_deleteAt:(NSInteger)index;
+
+/**
+ Returns array without elements for which block evaluates true.
+ If no block is given, it returns enumerator.
+ */
+- (id)rs_deleteIf:(BOOL(^)(id item))block;
+
+/**
  Drops first n elements from ary and returns the rest of the elements in an array.
  If a negative number is given, raises an ArgumentError.
  */
@@ -52,6 +69,11 @@
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
 /**
+ Mirror: [self objectAtIndex:index];
+ */
+- (id)rs_fetch:(NSUInteger)index;
+
+/**
  Returns a new array that is a one-dimensional flattening of self (recursively).
  That is, for every element that is an array, extract its elements into the new array.
  */
@@ -63,6 +85,11 @@
  The optional level argument determines the level of recursion to flatten.
  */
 - (instancetype)rs_flatten:(NSInteger)level;
+
+/**
+ Mirror: [self containsObject:object];
+ */
+- (BOOL)rs_includes:(id)object;
 
 /**
  Shorthand ([self count] == 0)
@@ -84,6 +111,17 @@
  Returns a new array containing self‘s elements in reverse order.
  */
 - (instancetype)rs_reverse;
+
+/**
+ Returns a random element from the array or nil in case array is empty.
+ */
+- (id)rs_sample;
+
+/**
+ Returns an array of n random element from the array.
+ Returns an empty array in case a target array is empty.
+ */
+- (instancetype)rs_sample:(NSUInteger)count;
 
 /**
  Returns first n elements from the array.

@@ -46,12 +46,42 @@
     return result;
 }
 
+- (instancetype)rs_delete:(id)object {
+    if (![self containsObject:object]) return self;
+    
+    id result = [NSMutableArray arrayWithArray:self];
+    [result removeObject:object];
+    
+    return result;
+}
+
+- (instancetype)rs_deleteAt:(NSInteger)index {
+    if (index >= (NSInteger)[self count]) return self;
+    
+    id result = [NSMutableArray arrayWithArray:self];
+    if (index < 0) index = self.count + index;
+    [result removeObjectAtIndex:index];
+    
+    return result;
+}
+
+- (id)rs_deleteIf:(BOOL (^)(id))block {
+    if (!block) return [self objectEnumerator];
+    
+    id result = [NSMutableArray array];
+    for (id item in self) {
+        if (!block(item)) [result addObject:item];
+    }
+    
+    return result;
+}
+
 - (instancetype)rs_drop:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
                                                   reason:NSInvalidArgumentException
                                                 userInfo:nil];
     
-    if (count > (NSInteger)self.count) return [NSArray array];
+    if (count >= (NSInteger)self.count) return [NSArray array];
     
     NSRange range = NSMakeRange(count, [self count] - count);
     return [self subarrayWithRange:range];
@@ -69,6 +99,10 @@
     return [self rs_drop:count];
 }
 
+- (id)rs_fetch:(NSUInteger)index {
+    return [self objectAtIndex:index];
+}
+
 - (instancetype)rs_flatten {
     return [self rs_flatten:-1];
 }
@@ -83,6 +117,10 @@
     }
     
     return result;
+}
+
+- (BOOL)rs_includes:(id)object {
+    return [self containsObject:object];
 }
 
 - (BOOL)rs_isEmpty {
@@ -105,11 +143,31 @@
 }
 
 - (instancetype)rs_reverse {
-    id result = [NSMutableArray arrayWithCapacity:[self count]];
-    id enumerator = [self reverseObjectEnumerator];
-    for (id item in enumerator) {
-        [result addObject:item];
+    return [[self reverseObjectEnumerator] allObjects];
+}
+
+- (id)rs_sample {
+    if ([self rs_isEmpty]) return nil;
+    else return self[arc4random_uniform([self count])];
+}
+
+- (instancetype)rs_sample:(NSUInteger)count {
+    if ([self rs_isEmpty]) return self;
+    
+    if (count > self.count) count = self.count; // R: return shuffeld
+    
+    id indices = [NSMutableIndexSet indexSet];
+    while (YES) {
+        NSInteger index = arc4random_uniform([self count]);
+        [indices addIndex:index];
+        if ([indices count] == count) break;
     }
+
+    id result = [NSMutableArray arrayWithCapacity:[indices count]];
+    [indices enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [result addObject:self[idx]];
+    }];
+
     return result;
 }
 

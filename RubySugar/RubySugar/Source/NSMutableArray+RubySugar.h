@@ -13,8 +13,25 @@
 @interface NSMutableArray (RubySugar)
 
 /**
- Removes all elements from self.
+ Removes all elements from self and returns self.
  */
 - (instancetype)rs_clear;
+
+/**
+ Removes all items that are equal to object and returns self.
+ */
+- (instancetype)rs_delete:(id)object;
+
+/**
+ Removes object at index and returns self.
+ If index is negative, removes from back.
+ */
+- (instancetype)rs_deleteAt:(NSInteger)index;
+
+/**
+ Removes all elements for which block evaluates true.
+ Returns self if block is specified, otherwise it returns enumerator.
+ */
+- (id)rs_deleteIf:(BOOL(^)(id item))block;
 
 @end
