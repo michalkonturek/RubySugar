@@ -46,6 +46,28 @@
     return result;
 }
 
+- (instancetype)rs_delete:(id)object {
+    if (![self containsObject:object]) return self;
+    
+    id result = [NSMutableArray arrayWithArray:self];
+    [result removeObject:object];
+    
+    return result;
+}
+
+- (instancetype)rs_deleteAt:(NSUInteger)index {
+    if (index >= [self count]) return self;
+    
+    id result = [NSMutableArray arrayWithArray:self];
+    [result removeObjectAtIndex:index];
+    
+    return result;
+}
+
+- (instancetype)rs_deleteIf:(BOOL (^)(id))block {
+    return nil;
+}
+
 - (instancetype)rs_drop:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
                                                   reason:NSInvalidArgumentException

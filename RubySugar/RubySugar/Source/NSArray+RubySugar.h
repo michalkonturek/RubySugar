@@ -38,6 +38,21 @@
 - (instancetype)rs_compact;
 
 /**
+ Deletes all items from self that are equal to obj.
+ Returns the last deleted item, or nil if no matching item is found.
+ */
+- (instancetype)rs_delete:(id)object;
+
+/**
+ Deletes the element at the specified index, returning new array without 
+ element, or self if the index is out of range.
+ */
+- (instancetype)rs_deleteAt:(NSUInteger)index;
+
+/***/
+- (instancetype)rs_deleteIf:(BOOL(^)(id item))block;
+
+/**
  Drops first n elements from ary and returns the rest of the elements in an array.
  If a negative number is given, raises an ArgumentError.
  */

@@ -89,6 +89,50 @@
     assertThat(result, hasCountOf([expected count]));
 }
 
+//- (void)test_delete_returns_nil_when_no_matching_item {
+//    id target = @[@1, @2, @3];
+//    id result = [target rs_delete:@4];
+//    assertThat(result, nilValue());
+//}
+
+- (void)test_delete_returns_self_when_no_matching_item {
+    id target = @[@1, @2, @3];
+    id result = [target rs_delete:@4];
+    assertThat(result, sameInstance(target));
+}
+
+- (void)test_delete_returns_array_without_objects_equal_to_removed {
+    id target = @[@1, @1, @2, @3];
+    id input = @1;
+    
+    id result = [target rs_delete:input];
+    target = [target mutableCopy];
+    [target removeObject:input];
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(target[idx]));
+    }];
+}
+
+- (void)test_deleteAt_returns_self_when_index_out_of_range {
+    id target = @[@1, @2, @3];
+    id result = [target rs_deleteAt:100];
+    assertThat(result, sameInstance(target));
+}
+
+- (void)test_deleteAt_retruns_array_withouth_deleted_object {
+    id target = @[@1, @1, @2, @3];
+    NSInteger input = 1;
+    
+    id result = [target rs_deleteAt:input];
+    target = [target mutableCopy];
+    [target removeObjectAtIndex:input];
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(target[idx]));
+    }];
+}
+
 - (void)test_drop {
     id target = [@1 rs_numbersTo:10];
     id expected = [@6 rs_numbersTo:10];
