@@ -38,18 +38,20 @@
 - (instancetype)rs_compact;
 
 /**
- Deletes all items from self that are equal to obj.
- Returns the last deleted item, or nil if no matching item is found.
+ Returns array without all items that are equal to object.
  */
 - (instancetype)rs_delete:(id)object;
 
 /**
- Deletes the element at the specified index, returning new array without 
- element, or self if the index is out of range.
+ Returns array without the element at index.
+ If index is negative, removes from back.
  */
 - (instancetype)rs_deleteAt:(NSInteger)index;
 
-/***/
+/**
+ Returns array without elements for which block evaluates true.
+ If no block is given, it returns enumerator.
+ */
 - (id)rs_deleteIf:(BOOL(^)(id item))block;
 
 /**
