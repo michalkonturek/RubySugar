@@ -69,6 +69,10 @@
     return [self rs_drop:count];
 }
 
+- (id)rs_fetch:(NSUInteger)index {
+    return [self objectAtIndex:index];
+}
+
 - (instancetype)rs_flatten {
     return [self rs_flatten:-1];
 }

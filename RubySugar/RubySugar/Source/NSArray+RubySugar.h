@@ -52,6 +52,11 @@
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
 /**
+ Mirror: [self objectAtIndex:index];
+ */
+- (id)rs_fetch:(NSUInteger)index;
+
+/**
  Returns a new array that is a one-dimensional flattening of self (recursively).
  That is, for every element that is an array, extract its elements into the new array.
  */
@@ -65,7 +70,7 @@
 - (instancetype)rs_flatten:(NSInteger)level;
 
 /**
- Mirror: [self contains]
+ Mirror: [self containsObject:object];
  */
 - (BOOL)rs_includes:(id)object;
 
