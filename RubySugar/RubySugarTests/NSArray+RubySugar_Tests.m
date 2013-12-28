@@ -198,7 +198,7 @@
     id target = [@1 rs_numbersTo:5];
     id expected = @"12345";
     
-    assertThat([target rs_join:nil], equalTo(expected));
+    assertThat([target rs_join], equalTo(expected));
 }
 
 - (void)test_reverse {
@@ -210,6 +210,47 @@
         assertThat(obj, equalTo(expected[idx]));
     }];
     assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_sample_returns_nil_when_array_is_empty {
+    assertThat([@[] rs_sample], nilValue());
+}
+
+- (void)test_sample_returns_an_element {
+    id target = @[@1, @2, @"s", @3];
+    
+    id result = [target rs_sample];
+
+    assertThat(result, isNot(nilValue()));
+    assertThat(target, hasItem(result));
+}
+
+- (void)test_sample_with_param_returns_empty_array_when_empty {
+    assertThat([@[] rs_sample:1], equalTo(@[]));
+}
+
+- (void)test_sample_with_param_returns_n_elements {
+    id target = @[@1, @2, @"s", @3, @4];
+    NSInteger input = 3;
+    
+    id result = [target rs_sample:input];
+    
+    assertThat(result, hasCountOf(input));
+    for (id item in result) {
+        assertThat(target, hasItem(item));
+    }
+}
+
+- (void)test_sample_with_param_returns_all_elements_when_n_larger_than_count {
+    id target = @[@1, @2, @"s", @3, @4];
+    NSInteger input = 100;
+    
+    id result = [target rs_sample:input];
+    
+    assertThat(result, hasCountOf([target count]));
+    for (id item in result) {
+        assertThat(target, hasItem(item));
+    }
 }
 
 - (void)test_take {
@@ -264,47 +305,6 @@
     id result = [target rs_takeWhile:nil];
     
     assertThat(result, instanceOf([NSEnumerator class]));
-}
-
-- (void)test_sample_returns_nil_when_array_is_empty {
-    assertThat([@[] rs_sample], nilValue());
-}
-
-- (void)test_sample_returns_an_element {
-    id target = @[@1, @2, @"s", @3];
-    
-    id result = [target rs_sample];
-
-    assertThat(result, isNot(nilValue()));
-    assertThat(target, hasItem(result));
-}
-
-- (void)test_sample_with_param_returns_empty_array_when_empty {
-    assertThat([@[] rs_sample:1], equalTo(@[]));
-}
-
-- (void)test_sample_with_param_returns_n_elements {
-    id target = @[@1, @2, @"s", @3, @4];
-    NSInteger input = 3;
-    
-    id result = [target rs_sample:input];
-    
-    assertThat(result, hasCountOf(input));
-    for (id item in result) {
-        assertThat(target, hasItem(item));
-    }
-}
-
-- (void)test_sample_with_param_returns_all_elements_when_n_larger_than_count {
-    id target = @[@1, @2, @"s", @3, @4];
-    NSInteger input = 100;
-    
-    id result = [target rs_sample:input];
-    
-    assertThat(result, hasCountOf([target count]));
-    for (id item in result) {
-        assertThat(target, hasItem(item));
-    }
 }
 
 - (void)test_uniq {
