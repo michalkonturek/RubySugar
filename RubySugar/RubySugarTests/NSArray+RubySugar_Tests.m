@@ -133,6 +133,41 @@
     }];
 }
 
+- (void)test_deleteAt_supports_negative_index {
+    id target = @[@0, @1, @2, @3, @4];
+    NSInteger input = -1;
+    
+    id result = [target rs_deleteAt:input];
+    
+    target = [target mutableCopy];
+    [target removeObjectAtIndex:4];
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(target[idx]));
+    }];
+}
+
+- (void)test_deleteIf_returns_enumerator_when_block_is_nil {
+    id result = [@[] rs_deleteIf:nil];
+    assertThat(result, instanceOf([NSEnumerator class]));
+}
+
+- (void)test_deleteIf_returns_array_without_deleted_objects {
+    id target = @[@0, @1, @2, @3, @4];
+    
+    id result = [target rs_deleteIf:^BOOL(id item) {
+        return ([item integerValue] > 2);
+    }];
+    
+    target = [target mutableCopy];
+    [target removeObject:@3];
+    [target removeObject:@4];
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(target[idx]));
+    }];
+}
+
 - (void)test_drop {
     id target = [@1 rs_numbersTo:10];
     id expected = [@6 rs_numbersTo:10];

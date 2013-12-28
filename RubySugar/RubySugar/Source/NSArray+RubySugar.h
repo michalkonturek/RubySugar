@@ -47,10 +47,10 @@
  Deletes the element at the specified index, returning new array without 
  element, or self if the index is out of range.
  */
-- (instancetype)rs_deleteAt:(NSUInteger)index;
+- (instancetype)rs_deleteAt:(NSInteger)index;
 
 /***/
-- (instancetype)rs_deleteIf:(BOOL(^)(id item))block;
+- (id)rs_deleteIf:(BOOL(^)(id item))block;
 
 /**
  Drops first n elements from ary and returns the rest of the elements in an array.

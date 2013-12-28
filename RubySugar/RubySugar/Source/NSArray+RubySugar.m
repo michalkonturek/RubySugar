@@ -55,17 +55,25 @@
     return result;
 }
 
-- (instancetype)rs_deleteAt:(NSUInteger)index {
-    if (index >= [self count]) return self;
+- (instancetype)rs_deleteAt:(NSInteger)index {
+    if (index >= (NSInteger)[self count]) return self;
     
     id result = [NSMutableArray arrayWithArray:self];
+    if (index < 0) index = self.count + index;
     [result removeObjectAtIndex:index];
     
     return result;
 }
 
-- (instancetype)rs_deleteIf:(BOOL (^)(id))block {
-    return nil;
+- (id)rs_deleteIf:(BOOL (^)(id))block {
+    if (!block) return [self objectEnumerator];
+    
+    id result = [NSMutableArray array];
+    for (id item in result) {
+        if (!block(item)) [result addObject:item];
+    }
+    
+    return result;
 }
 
 - (instancetype)rs_drop:(NSInteger)count {
