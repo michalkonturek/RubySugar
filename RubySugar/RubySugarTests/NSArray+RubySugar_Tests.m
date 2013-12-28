@@ -82,18 +82,12 @@
     id expected = @[@1, @3, @"w", @"!"];
     
     id result = [target rs_compact];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
     
     assertThat(result, hasCountOf([expected count]));
 }
-
-//- (void)test_delete_returns_nil_when_no_matching_item {
-//    id target = @[@1, @2, @3];
-//    id result = [target rs_delete:@4];
-//    assertThat(result, nilValue());
-//}
 
 - (void)test_delete_returns_self_when_no_matching_item {
     id target = @[@1, @2, @3];
@@ -103,14 +97,12 @@
 
 - (void)test_delete_returns_array_without_objects_equal_to_removed {
     id target = @[@1, @1, @2, @3];
+    id expected = @[@2, @3];
     id input = @1;
     
     id result = [target rs_delete:input];
-    target = [target mutableCopy];
-    [target removeObject:input];
-    
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(target[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -120,30 +112,25 @@
     assertThat(result, sameInstance(target));
 }
 
-- (void)test_deleteAt_retruns_array_withouth_deleted_object {
-    id target = @[@1, @1, @2, @3];
+- (void)test_deleteAt_retruns_array_without_deleted_object {
+    id target = @[@0, @1, @2, @3];
+    id expected = @[@0, @2, @3];
     NSInteger input = 1;
     
     id result = [target rs_deleteAt:input];
-    target = [target mutableCopy];
-    [target removeObjectAtIndex:input];
-    
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(target[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
 - (void)test_deleteAt_supports_negative_index {
     id target = @[@0, @1, @2, @3, @4];
+    id expected = @[@0, @1, @2, @3];
     NSInteger input = -1;
     
     id result = [target rs_deleteAt:input];
-    
-    target = [target mutableCopy];
-    [target removeObjectAtIndex:4];
-    
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(target[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -154,17 +141,14 @@
 
 - (void)test_deleteIf_returns_array_without_deleted_objects {
     id target = @[@0, @1, @2, @3, @4];
+    id expected = @[@0, @1, @2];
     
     id result = [target rs_deleteIf:^BOOL(id item) {
         return ([item integerValue] > 2);
     }];
     
-    target = [target mutableCopy];
-    [target removeObject:@3];
-    [target removeObject:@4];
-    
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(target[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -175,8 +159,8 @@
     id result = [target rs_drop:5];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -209,8 +193,8 @@
     }];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -232,10 +216,8 @@
     id expected = @[@1, @2, @3, @4, @5, @6];
     
     id result = [target rs_flatten];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-            assertThat(obj, equalTo(expected[idx]));
-    
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            assertThat(obj, equalTo(result[idx]));
         }];
     
     assertThat(result, hasCountOf([expected count]));
@@ -246,8 +228,8 @@
     id expected = @[@1, @2, @3, @4, @[@5, @6]];
     
     id result = [target rs_flatten:1];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
     
     assertThat(result, hasCountOf([expected count]));
@@ -285,8 +267,8 @@
     id expected = [@5 rs_numbersTo:1];
     
     id result = [target rs_reverse];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
     assertThat(result, hasCountOf([expected count]));
 }
@@ -339,8 +321,8 @@
     id result = [target rs_take:5];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -373,8 +355,8 @@
     }];
     
     assertThat(result, instanceOf([NSArray class]));
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -424,8 +406,8 @@
     
     assertThat(result, hasCountOf([expected count]));
     
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -436,8 +418,8 @@
     
     assertThat(result, hasCountOf([expected count]));
     
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 

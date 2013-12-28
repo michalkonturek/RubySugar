@@ -40,8 +40,8 @@
     
     id result = [target rs_delete:input];
     
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -51,14 +51,14 @@
     assertThat(result, sameInstance(target));
 }
 
-- (void)test_deleteAt_retruns_array_withouth_deleted_object {
+- (void)test_deleteAt_retruns_array_without_deleted_object {
     id target = [@[@0, @1, @2, @3] mutableCopy];
     id expected = @[@0, @2, @3];
     NSInteger input = 1;
     
     id result = [target rs_deleteAt:input];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -68,8 +68,8 @@
     NSInteger input = -1;
     
     id result = [target rs_deleteAt:input];
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 
@@ -86,8 +86,8 @@
         return ([item integerValue] > 2);
     }];
     
-    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        assertThat(obj, equalTo(expected[idx]));
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
     }];
 }
 

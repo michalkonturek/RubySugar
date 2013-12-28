@@ -69,7 +69,7 @@
     if (!block) return [self objectEnumerator];
     
     id result = [NSMutableArray array];
-    for (id item in result) {
+    for (id item in self) {
         if (!block(item)) [result addObject:item];
     }
     
