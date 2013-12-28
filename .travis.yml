@@ -6,7 +6,7 @@ before_install:
 
     # print version summary
     - pod --version
-    - xcpretty --version
+    #- xcpretty --version
 
     - cd RubySugar
 
