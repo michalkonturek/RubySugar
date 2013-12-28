@@ -51,7 +51,7 @@
                                                   reason:NSInvalidArgumentException
                                                 userInfo:nil];
     
-    if (count > (NSInteger)self.count) return [NSArray array];
+    if (count >= (NSInteger)self.count) return [NSArray array];
     
     NSRange range = NSMakeRange(count, [self count] - count);
     return [self subarrayWithRange:range];
