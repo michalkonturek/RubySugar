@@ -31,6 +31,12 @@ Source code of this project is available under the standard MIT license. Please 
 
 - (instancetype)rs_compact;
 
+- (instancetype)rs_delete:(id)object;
+
+- (instancetype)rs_deleteAt:(NSInteger)index;
+
+- (id)rs_deleteIf:(BOOL(^)(id item))block;
+
 - (instancetype)rs_drop:(NSInteger)count;
 
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
