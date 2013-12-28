@@ -143,6 +143,42 @@
     assertThat(result, instanceOf([NSEnumerator class]));
 }
 
+- (void)test_fetch_mirrors_objectAtIndex {
+    id target = @[@1, @2, @3];
+    assertThat([target rs_fetch:1], equalTo([target objectAtIndex:1]));
+}
+
+- (void)test_flatten {
+    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
+    id expected = @[@1, @2, @3, @4, @5, @6];
+    
+    id result = [target rs_flatten];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+            assertThat(obj, equalTo(expected[idx]));
+    
+        }];
+    
+    assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_flatten_when_level_1 {
+    id target = @[@1, @2, @[@3, @4, @[@5, @6]]];
+    id expected = @[@1, @2, @3, @4, @[@5, @6]];
+    
+    id result = [target rs_flatten:1];
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_includes_mirrors_containsObject {
+    id target = @[@1, @2, @3];
+    assertThatBool([target rs_includes:@2], equalToBool([target containsObject:@2]));
+}
+
 - (void)test_isEmpty_returns_true {
     assertThatBool([@[] rs_isEmpty], equalToBool(YES));
 }
