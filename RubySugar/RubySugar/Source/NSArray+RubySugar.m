@@ -85,6 +85,10 @@
     return result;
 }
 
+- (BOOL)rs_includes:(id)object {
+    return [self containsObject:object];
+}
+
 - (BOOL)rs_isEmpty {
     return ([self count] == 0);
 }

@@ -65,6 +65,11 @@
 - (instancetype)rs_flatten:(NSInteger)level;
 
 /**
+ Mirror: [self contains]
+ */
+- (BOOL)rs_includes:(id)object;
+
+/**
  Shorthand ([self count] == 0)
  */
 - (BOOL)rs_isEmpty;
