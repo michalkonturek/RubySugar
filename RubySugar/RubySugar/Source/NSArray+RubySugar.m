@@ -184,15 +184,13 @@
 }
 
 - (instancetype)rs_permutation:(NSInteger)n {
-    id result = [NSMutableArray array];
-    if (n == 1) return [self addArraysWithElements:self toContainer:result];
-//    if (n == 1) return [self rs_zip];
+    if (n == 1) return [self rs_zip];
 
+    id result = [NSMutableArray array];
     for (int idx = 0; idx < self.count; idx++) {
         id element = self[idx];
         id temp = [[self copy] rs_deleteAt:idx];
         for (id array in [temp rs_permutation:n - 1]) {
-//            result = [self addArrayByJoiningElement:element andArray:array toContainer:result];
             [result addObject:[array : element]];
         }
     }
@@ -207,19 +205,6 @@
     }];
     return result;
 }
-
-- (NSMutableArray *)addArraysWithElements:(NSArray *)elements
-                              toContainer:(NSMutableArray *)container {
-    
-    
-    for (id elem in self) {
-        [container addObject:@[elem]];
-    }
-    return container;
-}
-
-
-
 
 - (instancetype)rs_take:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException
