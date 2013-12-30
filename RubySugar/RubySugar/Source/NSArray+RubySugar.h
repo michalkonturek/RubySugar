@@ -111,6 +111,10 @@
  Returns array that yields all permutations of all elements.
  */
 - (instancetype)rs_permutation;
+
+/**
+ Returns array that yields all permutations of n elements.
+ */
 - (instancetype)rs_permutation:(NSInteger)n;
 
 /**
@@ -160,7 +164,9 @@
  */
 - (instancetype)rs_uniq:(id(^)(id item))block;
 
-/***/
+/**
+ Returns an array of elements converted into array.
+ */
 - (instancetype)rs_zip;
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;

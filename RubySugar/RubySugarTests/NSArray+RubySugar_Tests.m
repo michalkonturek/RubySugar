@@ -268,6 +268,12 @@
     assertThat(result, hasCountOf(0));
 }
 
+- (void)test_permutation_when_n_1 {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:1];
+    assertThat(result, containsInAnyOrder(@[@1], @[@2], @[@3], nil));
+}
+
 - (void)test_permutation {
     id target = @[@1, @2, @3];
     id expected = @[@[@1, @2, @3],
