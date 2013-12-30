@@ -19,4 +19,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'RubySugar/RubySugar/Source/**/*.{h,m}'
   s.requires_arc = true
+
+  s.dependency 'MKFoundationKit/Block', '~> 1.0.0'
 end
