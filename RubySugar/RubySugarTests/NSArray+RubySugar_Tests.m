@@ -446,6 +446,11 @@
     assertThat(result, containsInAnyOrder(@[@"student", @"sam"] , @[@"teacher", @"matz"], nil));
 }
 
+- (void)test_zip {
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1], @[@2], @[@3]];
+    assertThat([target rs_zip], equalTo(expected));
+}
 
 - (void)test_objectForKeydSubscript_supports_nsnumber {
     id expected = @[@3];

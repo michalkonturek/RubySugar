@@ -160,6 +160,8 @@
  */
 - (instancetype)rs_uniq:(id(^)(id item))block;
 
+/***/
+- (instancetype)rs_zip;
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
 

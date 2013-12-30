@@ -186,33 +186,38 @@
 - (instancetype)rs_permutation:(NSInteger)n {
     id result = [NSMutableArray array];
     if (n == 1) return [self addArraysWithElements:self toContainer:result];
+//    if (n == 1) return [self rs_zip];
 
     for (int idx = 0; idx < self.count; idx++) {
         id element = self[idx];
         id temp = [[self copy] rs_deleteAt:idx];
         for (id array in [temp rs_permutation:n - 1]) {
-            result = [self addArrayByJoiningElement:element andArray:array toContainer:result];
+//            result = [self addArrayByJoiningElement:element andArray:array toContainer:result];
+            [result addObject:[array : element]];
         }
     }
     
     return result;
 }
 
+- (instancetype)rs_zip {
+    id result = [NSMutableArray array];
+    [self mk_each:^(id item) {
+        [result addObject:@[item]];
+    }];
+    return result;
+}
+
 - (NSMutableArray *)addArraysWithElements:(NSArray *)elements
                               toContainer:(NSMutableArray *)container {
-    for (id elem in elements) {
+    
+    
+    for (id elem in self) {
         [container addObject:@[elem]];
     }
     return container;
 }
 
-- (NSMutableArray *)addArrayByJoiningElement:(id)element andArray:(NSArray *)array toContainer:(NSMutableArray *)container
-{
-    NSMutableArray *new = [array mutableCopy];
-    [new insertObject:element atIndex:0];
-    [container addObject:new];
-    return container;
-}
 
 
 
