@@ -345,29 +345,29 @@
 }
 
 - (void)test_shuffle {
-//    id target = @[@1, @2, @3];
-//    id expected = @[@[@1, @2, @3],
-//                    @[@1, @3, @2],
-//                    @[@2, @1, @3],
-//                    @[@2, @3, @1],
-//                    @[@3, @1, @2],
-//                    @[@3, @2, @1]] ;
-//
-//    id result = nil;
-//    while (YES) {
-//        result = [target rs_shuffle];
-//        if (![result isEqualToArray:target]) break;
-//    }
-//
-//    BOOL success = NO;
-//    for (id permutation in expected) {
-//        if ([result isEqualToArray:permutation]) {
-//            success = YES;
-//            break;
-//        }
-//    }
-//    
-//    assertThatBool(success, equalToBool(YES));
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1, @2, @3],
+                    @[@1, @3, @2],
+                    @[@2, @1, @3],
+                    @[@2, @3, @1],
+                    @[@3, @1, @2],
+                    @[@3, @2, @1]] ;
+
+    id result = nil;
+    while (YES) {
+        result = [target rs_shuffle];
+        if (![result isEqualToArray:target]) break;
+    }
+
+    BOOL success = NO;
+    for (id permutation in expected) {
+        if ([result isEqualToArray:permutation]) {
+            success = YES;
+            break;
+        }
+    }
+    
+    assertThatBool(success, equalToBool(YES));
 }
 
 - (void)test_take {

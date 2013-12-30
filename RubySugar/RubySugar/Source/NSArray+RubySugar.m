@@ -174,9 +174,8 @@
 }
 
 - (instancetype)rs_shuffle {
-//    NSInteger index =  arc4random_uniform(self.count);
-//    return [self rs_permutation][index];
-    return nil;
+    NSInteger index =  arc4random_uniform(self.count);
+    return [self rs_permutation][index];
 }
 
 - (instancetype)rs_permutation {
