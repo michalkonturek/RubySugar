@@ -11,6 +11,8 @@
 #import "NSNumber+RubySugar.h"
 #import "NSString+RubySugar.h"
 
+#import <MKFoundationKit/NSArray+MK_Block.h>
+
 @implementation NSArray (RubySugar)
 
 - (instancetype):(id)object {
