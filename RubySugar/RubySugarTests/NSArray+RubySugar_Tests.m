@@ -262,6 +262,36 @@
     assertThat([target rs_join], equalTo(expected));
 }
 
+- (void)test_permutation_returns_empty_when_n_is_zero {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:0];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_permutation {
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1, @2, @3],
+                    @[@1, @3, @2],
+                    @[@2, @1, @3],
+                    @[@2, @3, @1],
+                    @[@3, @1, @2],
+                    @[@3, @2, @1]] ;
+    
+    id result = [target rs_permutation];
+    
+    NSInteger match = 0;
+    for (id permutation in expected) {
+        for (id item in result) {
+            if ([item isEqualToArray:permutation]) {
+                match++;
+                break;
+            };
+        }
+    }
+  
+    assertThatInteger(match, equalToInteger([expected count]));
+}
+
 - (void)test_reverse {
     id target = [@1 rs_numbersTo:5];
     id expected = [@5 rs_numbersTo:1];
@@ -312,6 +342,32 @@
     for (id item in result) {
         assertThat(target, hasItem(item));
     }
+}
+
+- (void)test_shuffle {
+//    id target = @[@1, @2, @3];
+//    id expected = @[@[@1, @2, @3],
+//                    @[@1, @3, @2],
+//                    @[@2, @1, @3],
+//                    @[@2, @3, @1],
+//                    @[@3, @1, @2],
+//                    @[@3, @2, @1]] ;
+//
+//    id result = nil;
+//    while (YES) {
+//        result = [target rs_shuffle];
+//        if (![result isEqualToArray:target]) break;
+//    }
+//
+//    BOOL success = NO;
+//    for (id permutation in expected) {
+//        if ([result isEqualToArray:permutation]) {
+//            success = YES;
+//            break;
+//        }
+//    }
+//    
+//    assertThatBool(success, equalToBool(YES));
 }
 
 - (void)test_take {

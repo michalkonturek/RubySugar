@@ -154,7 +154,7 @@
 - (instancetype)rs_sample:(NSUInteger)count {
     if ([self rs_isEmpty]) return self;
     
-    if (count > self.count) count = self.count; // R: return shuffeld
+    if (count > self.count) count = self.count; // R: return shuffled
     
     id indices = [NSMutableIndexSet indexSet];
     while (YES) {
@@ -170,6 +170,49 @@
 
     return result;
 }
+
+- (instancetype)rs_shuffle {
+//    NSInteger index =  arc4random_uniform(self.count);
+//    return [self rs_permutation][index];
+    return nil;
+}
+
+- (instancetype)rs_permutation {
+    return [self rs_permutation:self.count];
+}
+
+- (instancetype)rs_permutation:(NSInteger)n {
+    id result = [NSMutableArray array];
+    if (n == 1) return [self addArraysWithElements:self toContainer:result];
+
+    for (int idx = 0; idx < self.count; idx++) {
+        id element = self[idx];
+        id temp = [[self copy] rs_deleteAt:idx];
+        for (id array in [temp rs_permutation:n - 1]) {
+            result = [self addArrayByJoiningElement:element andArray:array toContainer:result];
+        }
+    }
+    
+    return result;
+}
+
+- (NSMutableArray *)addArraysWithElements:(NSArray *)elements
+                              toContainer:(NSMutableArray *)container {
+    for (id elem in elements) {
+        [container addObject:@[elem]];
+    }
+    return container;
+}
+
+- (NSMutableArray *)addArrayByJoiningElement:(id)element andArray:(NSArray *)array toContainer:(NSMutableArray *)container
+{
+    NSMutableArray *new = [array mutableCopy];
+    [new insertObject:element atIndex:0];
+    [container addObject:new];
+    return container;
+}
+
+
 
 - (instancetype)rs_take:(NSInteger)count {
     if (count < 0) @throw [NSException exceptionWithName:NSInvalidArgumentException

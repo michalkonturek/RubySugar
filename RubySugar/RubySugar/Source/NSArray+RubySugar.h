@@ -108,6 +108,12 @@
 - (NSString *)rs_join:(NSString *)separator;
 
 /**
+ Returns array that yields all permutations of all elements.
+ */
+- (instancetype)rs_permutation;
+- (instancetype)rs_permutation:(NSInteger)n;
+
+/**
  Returns a new array containing self‘s elements in reverse order.
  */
 - (instancetype)rs_reverse;
@@ -122,6 +128,11 @@
  Returns an empty array in case a target array is empty.
  */
 - (instancetype)rs_sample:(NSUInteger)count;
+
+/**
+ Returns a new array with elements of self shuffled.
+ */
+- (instancetype)rs_shuffle;
 
 /**
  Returns first n elements from the array.
