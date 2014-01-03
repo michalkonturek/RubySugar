@@ -32,6 +32,13 @@
  */
 - (instancetype)rs_clear;
 
+
+/***/
+- (instancetype)rs_combination;
+
+/***/
+- (instancetype)rs_combination:(NSInteger)n;
+
 /**
  Returns a copy of self with all nil elements removed.
  */

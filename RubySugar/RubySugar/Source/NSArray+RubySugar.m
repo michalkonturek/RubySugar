@@ -38,6 +38,14 @@
     return [[self class] array];
 }
 
+- (instancetype)rs_combination {
+    return nil;
+}
+
+- (instancetype)rs_combination:(NSInteger)n {
+    return nil;
+}
+
 - (instancetype)rs_compact {
     id result = [NSMutableArray arrayWithCapacity:self.count];
     

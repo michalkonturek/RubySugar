@@ -90,7 +90,7 @@
 
 /**
  Divides str into substrings based on a delimiter, returning an array of these substrings.
- If pattern is a string then str is split on hitespace.
+ If pattern is a string then str is split on whitespace.
  If pattern is an empty string then str is split on character.
  If pattern is nil then str is split on whitespace.
  */

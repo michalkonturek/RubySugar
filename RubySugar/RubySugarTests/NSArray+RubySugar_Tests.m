@@ -77,6 +77,10 @@
     assertThat([target rs_clear], hasCountOf(0));
 }
 
+- (void)test_combination_returns_empty_when_negative_n {
+    
+}
+
 - (void)test_compact {
     id target = @[@1, [NSNull null], @3, @"w", [NSNull null], @"!"];
     id expected = @[@1, @3, @"w", @"!"];
@@ -262,13 +266,25 @@
     assertThat([target rs_join], equalTo(expected));
 }
 
-- (void)test_permutation_returns_empty_when_n_is_zero {
+- (void)test_permutation_returns_empty_array_when_n_is_zero {
     id target = @[@1, @2, @3];
     id result = [target rs_permutation:0];
     assertThat(result, hasCountOf(0));
 }
 
-- (void)test_permutation_when_n_1 {
+- (void)test_permutation_returns_empty_array_when_n_is_out_of_bound {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:10];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_permutation_returns_empty_array_when_n_is_negative {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:-1];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_permutation_when_n_is_1 {
     id target = @[@1, @2, @3];
     id result = [target rs_permutation:1];
     assertThat(result, containsInAnyOrder(@[@1], @[@2], @[@3], nil));
