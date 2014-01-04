@@ -118,6 +118,12 @@
     assertThatInteger(match, equalToInteger([expected count]));
 }
 
+- (void)test_combination_when_n_is_count {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:[target count]];
+    assertThat(result[0], containsInAnyOrder(@1, @2, @3, nil));
+}
+
 - (void)test_compact {
     id target = @[@1, [NSNull null], @3, @"w", [NSNull null], @"!"];
     id expected = @[@1, @3, @"w", @"!"];

@@ -38,10 +38,6 @@
     return [[self class] array];
 }
 
-- (instancetype)rs_combination {
-    return [self rs_combination:self.count];
-}
-
 - (instancetype)rs_combination:(NSInteger)n {
     if (n == 1) return [self rs_zip];
     

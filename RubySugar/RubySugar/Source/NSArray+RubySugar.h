@@ -32,14 +32,8 @@
  */
 - (instancetype)rs_clear;
 
-
 /**
- 
- */
-- (instancetype)rs_combination;
-
-/**
- 
+ Returns array that yields all combinations of n elements.
  */
 - (instancetype)rs_combination:(NSInteger)n;
 
