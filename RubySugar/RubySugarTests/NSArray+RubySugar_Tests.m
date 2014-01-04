@@ -77,8 +77,45 @@
     assertThat([target rs_clear], hasCountOf(0));
 }
 
+- (void)test_combination_returns_empty_array_when_n_is_zero {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:0];
+    assertThat(result, hasCountOf(0));
+}
+
 - (void)test_combination_returns_empty_when_negative_n {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:-1];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_combination_when_n_is_1 {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:1];
+    assertThat(result, containsInAnyOrder(@[@1], @[@2], @[@3], nil));
+}
+
+- (void)test_combination {
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1, @2],
+                    @[@1, @3],
+                    @[@2, @3]
+                    ];
     
+    id result = [target rs_combination:2];
+    
+    NSInteger match = 0;
+    for (id combination in expected) {
+        for (id item in result) {
+            if ([[NSSet setWithArray:item]
+                 isEqualToSet:[NSSet setWithArray:combination]]) {
+                match++;
+                break;
+            };
+        }
+    }
+    
+    assertThatInteger(match, equalToInteger([expected count]));
 }
 
 - (void)test_compact {

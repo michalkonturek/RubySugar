@@ -39,11 +39,22 @@
 }
 
 - (instancetype)rs_combination {
-    return nil;
+    return [self rs_combination:self.count];
 }
 
 - (instancetype)rs_combination:(NSInteger)n {
-    return nil;
+    if (n == 1) return [self rs_zip];
+    
+    id result = [NSMutableArray array];
+    for (int idx = 0; idx < self.count; idx++) {
+        id element = self[idx];
+        id temp = [self rs_drop:(idx + 1)];
+        for (id array in [temp rs_combination:n - 1]) {
+            [result addObject:[array : element]];
+        }
+    }
+    
+    return result;
 }
 
 - (instancetype)rs_compact {

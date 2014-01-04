@@ -33,10 +33,14 @@
 - (instancetype)rs_clear;
 
 
-/***/
+/**
+ 
+ */
 - (instancetype)rs_combination;
 
-/***/
+/**
+ 
+ */
 - (instancetype)rs_combination:(NSInteger)n;
 
 /**
