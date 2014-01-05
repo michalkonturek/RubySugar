@@ -116,6 +116,10 @@
     return [self rs_drop:count];
 }
 
+- (void)rs_each:(void (^)(id item))block {
+    [self mk_each:block];
+}
+
 - (id)rs_fetch:(NSUInteger)index {
     return [self objectAtIndex:index];
 }
@@ -159,6 +163,10 @@
     return result;
 }
 
+- (instancetype)rs_map:(id (^)(id item))selectorBlock {
+    return [self mk_map:selectorBlock];
+}
+
 - (instancetype)rs_reverse {
     return [[self reverseObjectEnumerator] allObjects];
 }
@@ -188,6 +196,10 @@
     return result;
 }
 
+- (instancetype)rs_select:(BOOL (^)(id item))conditionBlock {
+    return [self mk_select:conditionBlock];
+}
+
 - (instancetype)rs_shuffle {
     NSInteger index =  arc4random_uniform(self.count);
     return [self rs_permutation][index];
@@ -210,6 +222,10 @@
     }
     
     return result;
+}
+
+- (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock {
+    return [self mk_reject:conditionBlock];
 }
 
 - (instancetype)rs_zip {
@@ -266,13 +282,13 @@
     return result;
 }
 
-- (BOOL)mk_any:(BOOL (^)(id item))conditionBlock {
-    if (!conditionBlock) return NO;
-    for (id item in self) {
-        if (conditionBlock(item)) return YES;
-    }
-    return NO;
-}
+//- (BOOL)mk_any:(BOOL (^)(id item))conditionBlock {
+//    if (!conditionBlock) return NO;
+//    for (id item in self) {
+//        if (conditionBlock(item)) return YES;
+//    }
+//    return NO;
+//}
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {
     static NSString *inclusiveRange = @"..";

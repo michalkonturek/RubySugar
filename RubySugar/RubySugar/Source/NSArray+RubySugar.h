@@ -71,6 +71,9 @@
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
+/***/
+- (void)rs_each:(void (^)(id item))block;
+
 /**
  Mirror: [self objectAtIndex:index];
  */
@@ -110,6 +113,9 @@
  */
 - (NSString *)rs_join:(NSString *)separator;
 
+/***/
+- (instancetype)rs_map:(id (^)(id item))selectorBlock;
+
 /**
  Returns array that yields all permutations of all elements.
  */
@@ -119,6 +125,9 @@
  Returns array that yields all permutations of n elements.
  */
 - (instancetype)rs_permutation:(NSInteger)n;
+
+/***/
+- (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock;
 
 /**
  Returns a new array containing self‘s elements in reverse order.
@@ -135,6 +144,9 @@
  Returns an empty array in case a target array is empty.
  */
 - (instancetype)rs_sample:(NSUInteger)count;
+
+/***/
+- (instancetype)rs_select:(BOOL (^)(id item))conditionBlock;
 
 /**
  Returns a new array with elements of self shuffled.
