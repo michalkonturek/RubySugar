@@ -77,6 +77,53 @@
     assertThat([target rs_clear], hasCountOf(0));
 }
 
+- (void)test_combination_returns_empty_array_when_n_is_zero {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:0];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_combination_returns_empty_when_negative_n {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:-1];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_combination_when_n_is_1 {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:1];
+    assertThat(result, containsInAnyOrder(@[@1], @[@2], @[@3], nil));
+}
+
+- (void)test_combination {
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1, @2],
+                    @[@1, @3],
+                    @[@2, @3]
+                    ];
+    
+    id result = [target rs_combination:2];
+    
+    NSInteger match = 0;
+    for (id combination in expected) {
+        for (id item in result) {
+            if ([[NSSet setWithArray:item]
+                 isEqualToSet:[NSSet setWithArray:combination]]) {
+                match++;
+                break;
+            };
+        }
+    }
+    
+    assertThatInteger(match, equalToInteger([expected count]));
+}
+
+- (void)test_combination_when_n_is_count {
+    id target = @[@1, @2, @3];
+    id result = [target rs_combination:[target count]];
+    assertThat(result[0], containsInAnyOrder(@1, @2, @3, nil));
+}
+
 - (void)test_compact {
     id target = @[@1, [NSNull null], @3, @"w", [NSNull null], @"!"];
     id expected = @[@1, @3, @"w", @"!"];
@@ -262,6 +309,54 @@
     assertThat([target rs_join], equalTo(expected));
 }
 
+- (void)test_permutation_returns_empty_array_when_n_is_zero {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:0];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_permutation_returns_empty_array_when_n_is_out_of_bound {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:10];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_permutation_returns_empty_array_when_n_is_negative {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:-1];
+    assertThat(result, hasCountOf(0));
+}
+
+- (void)test_permutation_when_n_is_1 {
+    id target = @[@1, @2, @3];
+    id result = [target rs_permutation:1];
+    assertThat(result, containsInAnyOrder(@[@1], @[@2], @[@3], nil));
+}
+
+- (void)test_permutation {
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1, @2, @3],
+                    @[@1, @3, @2],
+                    @[@2, @1, @3],
+                    @[@2, @3, @1],
+                    @[@3, @1, @2],
+                    @[@3, @2, @1]] ;
+    
+    id result = [target rs_permutation];
+    
+    NSInteger match = 0;
+    for (id permutation in expected) {
+        for (id item in result) {
+            if ([item isEqualToArray:permutation]) {
+                match++;
+                break;
+            };
+        }
+    }
+  
+    assertThatInteger(match, equalToInteger([expected count]));
+}
+
 - (void)test_reverse {
     id target = [@1 rs_numbersTo:5];
     id expected = [@5 rs_numbersTo:1];
@@ -312,6 +407,32 @@
     for (id item in result) {
         assertThat(target, hasItem(item));
     }
+}
+
+- (void)test_shuffle {
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1, @2, @3],
+                    @[@1, @3, @2],
+                    @[@2, @1, @3],
+                    @[@2, @3, @1],
+                    @[@3, @1, @2],
+                    @[@3, @2, @1]] ;
+
+    id result = nil;
+    while (YES) {
+        result = [target rs_shuffle];
+        if (![result isEqualToArray:target]) break;
+    }
+
+    BOOL success = NO;
+    for (id permutation in expected) {
+        if ([result isEqualToArray:permutation]) {
+            success = YES;
+            break;
+        }
+    }
+    
+    assertThatBool(success, equalToBool(YES));
 }
 
 - (void)test_take {
@@ -390,6 +511,11 @@
     assertThat(result, containsInAnyOrder(@[@"student", @"sam"] , @[@"teacher", @"matz"], nil));
 }
 
+- (void)test_zip {
+    id target = @[@1, @2, @3];
+    id expected = @[@[@1], @[@2], @[@3]];
+    assertThat([target rs_zip], equalTo(expected));
+}
 
 - (void)test_objectForKeydSubscript_supports_nsnumber {
     id expected = @[@3];

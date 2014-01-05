@@ -12,7 +12,6 @@
 
 /**
  Returns new array by concatenating array with input object.
- 
  Every object that responds to description selector is appended.
  */
 - (instancetype):(id)object;
@@ -31,6 +30,11 @@
  Returns an empty array.
  */
 - (instancetype)rs_clear;
+
+/**
+ Returns array that yields all combinations of n elements.
+ */
+- (instancetype)rs_combination:(NSInteger)n;
 
 /**
  Returns a copy of self with all nil elements removed.
@@ -63,7 +67,6 @@
 /**
  Drops elements up to, but not including, the first element for which the block 
  returns nil or false and returns an array containing the remaining elements.
- 
  If no block is given, an Enumerator is returned instead.
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
@@ -108,6 +111,16 @@
 - (NSString *)rs_join:(NSString *)separator;
 
 /**
+ Returns array that yields all permutations of all elements.
+ */
+- (instancetype)rs_permutation;
+
+/**
+ Returns array that yields all permutations of n elements.
+ */
+- (instancetype)rs_permutation:(NSInteger)n;
+
+/**
  Returns a new array containing self‘s elements in reverse order.
  */
 - (instancetype)rs_reverse;
@@ -122,6 +135,11 @@
  Returns an empty array in case a target array is empty.
  */
 - (instancetype)rs_sample:(NSUInteger)count;
+
+/**
+ Returns a new array with elements of self shuffled.
+ */
+- (instancetype)rs_shuffle;
 
 /**
  Returns first n elements from the array.
@@ -149,6 +167,10 @@
  */
 - (instancetype)rs_uniq:(id(^)(id item))block;
 
+/**
+ Returns an array of elements converted into array.
+ */
+- (instancetype)rs_zip;
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
 

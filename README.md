@@ -9,6 +9,43 @@
 
 Ports Ruby syntactic sugar to Objective-C.
 
+```obj-c
+id numbers = @[@0, @1, @2, @3, @4, @5];
+id result = numbers[@"1..4"];
+// [1, 2, 3, 4]
+
+result = numbers[@"1...4"];
+// 2, 3]
+
+result = [@[@1, @2]:@[@3, @4]];
+// [1, 2, 3, 4]
+
+result = [@[@1, @2]:@3];
+// [1, 2, 3]
+
+[@3 rs_timesWithIndex:^(NSInteger index) {
+    NSLog(@"Line #%i", index);
+}];
+// Line #0
+// Line #1
+// Line #2
+
+result = @"Vexilla regis."[1];
+// e
+
+result = @"Vexilla regis."[@"1..6"];
+// exilla
+
+result = @"Vexilla regis."[@"1...6"];
+// xill
+
+result = [[[@"Number " :@10] :@" is greater than "] :@5];
+// Number 10 is greater than 5.
+
+result = [@"Hello" rs_chars];
+// ["H", "e", "l", "l", "o"]
+```
+
 ## License
 
 Source code of this project is available under the standard MIT license. Please see [the license file][LICENSE].
@@ -24,46 +61,51 @@ Source code of this project is available under the standard MIT license. Please 
 - (instancetype):(id)object;
 
 - (instancetype):(NSInteger)from :(NSInteger)to;
-
 - (instancetype):(NSInteger)from :(NSInteger)to exclusive:(BOOL)exclusive;
 
 - (instancetype)rs_clear;
 
+- (instancetype)rs_combination:(NSInteger)n;
+
 - (instancetype)rs_compact;
 
 - (instancetype)rs_delete:(id)object;
-
 - (instancetype)rs_deleteAt:(NSInteger)index;
-
 - (id)rs_deleteIf:(BOOL(^)(id item))block;
 
 - (instancetype)rs_drop:(NSInteger)count;
-
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
-- (instancetype)rs_flatten;
+- (id)rs_fetch:(NSUInteger)index;
 
+- (instancetype)rs_flatten;
 - (instancetype)rs_flatten:(NSInteger)level;
+
+- (BOOL)rs_includes:(id)object;
 
 - (BOOL)rs_isEmpty;
 
 - (NSString *)rs_join;
-
 - (NSString *)rs_join:(NSString *)separator;
+
+- (instancetype)rs_permutation;
+- (instancetype)rs_permutation:(NSInteger)n;
 
 - (instancetype)rs_reverse;
 
 - (id)rs_sample;
-
 - (instancetype)rs_sample:(NSUInteger)count;
 
-- (instancetype)rs_take:(NSInteger)count;
+- (instancetype)rs_shuffle;
 
+- (instancetype)rs_take:(NSInteger)count;
 - (id)rs_takeWhile:(BOOL(^)(id item))block;
 
 - (instancetype)rs_uniq;
-
 - (instancetype)rs_uniq:(id(^)(id item))block;
+
+- (instancetype)rs_zip;
+
 ```
 
 
@@ -80,7 +122,6 @@ Source code of this project is available under the standard MIT license. Please 
 - (instancetype)rs_pred;
 
 - (id)rs_times:(void(^)(void))block;
-
 - (id)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;

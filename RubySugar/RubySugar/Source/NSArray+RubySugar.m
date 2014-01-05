@@ -11,6 +11,8 @@
 #import "NSNumber+RubySugar.h"
 #import "NSString+RubySugar.h"
 
+#import <MKFoundationKit/NSArray+MK_Block.h>
+
 @implementation NSArray (RubySugar)
 
 - (instancetype):(id)object {
@@ -34,6 +36,21 @@
 
 - (instancetype)rs_clear {
     return [[self class] array];
+}
+
+- (instancetype)rs_combination:(NSInteger)n {
+    if (n == 1) return [self rs_zip];
+    
+    id result = [NSMutableArray array];
+    for (int idx = 0; idx < self.count; idx++) {
+        id element = self[idx];
+        id temp = [self rs_drop:(idx + 1)];
+        for (id array in [temp rs_combination:n - 1]) {
+            [result addObject:[array : element]];
+        }
+    }
+    
+    return result;
 }
 
 - (instancetype)rs_compact {
@@ -154,7 +171,7 @@
 - (instancetype)rs_sample:(NSUInteger)count {
     if ([self rs_isEmpty]) return self;
     
-    if (count > self.count) count = self.count; // R: return shuffeld
+    if (count > self.count) count = self.count; // R: return shuffled
     
     id indices = [NSMutableIndexSet indexSet];
     while (YES) {
@@ -168,6 +185,38 @@
         [result addObject:self[idx]];
     }];
 
+    return result;
+}
+
+- (instancetype)rs_shuffle {
+    NSInteger index =  arc4random_uniform(self.count);
+    return [self rs_permutation][index];
+}
+
+- (instancetype)rs_permutation {
+    return [self rs_permutation:self.count];
+}
+
+- (instancetype)rs_permutation:(NSInteger)n {
+    if (n == 1) return [self rs_zip];
+
+    id result = [NSMutableArray array];
+    for (int idx = 0; idx < self.count; idx++) {
+        id element = self[idx];
+        id temp = [[self copy] rs_deleteAt:idx];
+        for (id array in [temp rs_permutation:n - 1]) {
+            [result addObject:[array : element]];
+        }
+    }
+    
+    return result;
+}
+
+- (instancetype)rs_zip {
+    id result = [NSMutableArray array];
+    [self mk_each:^(id item) {
+        [result addObject:@[item]];
+    }];
     return result;
 }
 

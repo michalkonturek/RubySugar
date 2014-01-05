@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71AEC113556241A28E6AB0F2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C26C3ADA3D9542B3A7AE27AC /* libPods.a */; };
 		901B256A185792D000865ECB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B2569185792D000865ECB /* Foundation.framework */; };
 		901B256C185792D000865ECB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B256B185792D000865ECB /* CoreGraphics.framework */; };
 		901B256E185792D000865ECB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B256D185792D000865ECB /* UIKit.framework */; };
@@ -60,6 +61,7 @@
 		9038E3E8186C7627005D672D /* NSMutableArray+RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+RubySugar.h"; sourceTree = "<group>"; };
 		9038E3E9186C7627005D672D /* NSMutableArray+RubySugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+RubySugar.m"; sourceTree = "<group>"; };
 		9038E3EB186C7641005D672D /* NSMutableArray+RubySugar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+RubySugar_Tests.m"; sourceTree = "<group>"; };
+		90581D8E1879EBC10028405C /* RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubySugar.h; sourceTree = "<group>"; };
 		9091E91F186914A5007A196B /* NSArray+RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+RubySugar.h"; sourceTree = "<group>"; };
 		9091E920186914A5007A196B /* NSArray+RubySugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+RubySugar.m"; sourceTree = "<group>"; };
 		9091E922186914C0007A196B /* NSArray+RubySugar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+RubySugar_Tests.m"; sourceTree = "<group>"; };
@@ -69,6 +71,8 @@
 		90CD033418593BD0007FCB16 /* NSString+RubySugar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RubySugar_Tests.m"; sourceTree = "<group>"; };
 		90CD033618593C66007FCB16 /* NSString+RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RubySugar.h"; sourceTree = "<group>"; };
 		90CD033718593C66007FCB16 /* NSString+RubySugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RubySugar.m"; sourceTree = "<group>"; };
+		9AF9EBF1979B44FD930F3F24 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		C26C3ADA3D9542B3A7AE27AC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 				901B256C185792D000865ECB /* CoreGraphics.framework in Frameworks */,
 				901B256E185792D000865ECB /* UIKit.framework in Frameworks */,
 				901B256A185792D000865ECB /* Foundation.framework in Frameworks */,
+				71AEC113556241A28E6AB0F2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +109,7 @@
 				901B2568185792D000865ECB /* Frameworks */,
 				901B2567185792D000865ECB /* Products */,
 				7BCAACAC867E4C92ACD825C2 /* Pods-RubySugarTests.xcconfig */,
+				9AF9EBF1979B44FD930F3F24 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +130,7 @@
 				901B256D185792D000865ECB /* UIKit.framework */,
 				901B2582185792D000865ECB /* XCTest.framework */,
 				196B265B58EB4426A474B72F /* libPods-RubySugarTests.a */,
+				C26C3ADA3D9542B3A7AE27AC /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,6 +182,7 @@
 		90CD033318593B45007FCB16 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				90581D8E1879EBC10028405C /* RubySugar.h */,
 				9091E91F186914A5007A196B /* NSArray+RubySugar.h */,
 				9091E920186914A5007A196B /* NSArray+RubySugar.m */,
 				9038E3E8186C7627005D672D /* NSMutableArray+RubySugar.h */,
@@ -194,9 +202,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 901B2592185792D000865ECB /* Build configuration list for PBXNativeTarget "RubySugar" */;
 			buildPhases = (
+				A2B3CCA735E14B4CA8467FC8 /* Check Pods Manifest.lock */,
 				901B2562185792D000865ECB /* Sources */,
 				901B2563185792D000865ECB /* Frameworks */,
 				901B2564185792D000865ECB /* Resources */,
+				C9CFD41A31624BAE8D3C5BAC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -308,6 +318,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-RubySugarTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2B3CCA735E14B4CA8467FC8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C9CFD41A31624BAE8D3C5BAC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -441,6 +481,7 @@
 		};
 		901B2593185792D000865ECB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AF9EBF1979B44FD930F3F24 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -456,6 +497,7 @@
 		};
 		901B2594185792D000865ECB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AF9EBF1979B44FD930F3F24 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
