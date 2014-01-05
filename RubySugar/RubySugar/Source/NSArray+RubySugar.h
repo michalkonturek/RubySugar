@@ -12,7 +12,6 @@
 
 /**
  Returns new array by concatenating array with input object.
- 
  Every object that responds to description selector is appended.
  */
 - (instancetype):(id)object;
@@ -68,7 +67,6 @@
 /**
  Drops elements up to, but not including, the first element for which the block 
  returns nil or false and returns an array containing the remaining elements.
- 
  If no block is given, an Enumerator is returned instead.
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
