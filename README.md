@@ -122,7 +122,6 @@ Source code of this project is available under the standard MIT license. Please 
 - (instancetype)rs_pred;
 
 - (id)rs_times:(void(^)(void))block;
-
 - (id)rs_timesWithIndex:(void(^)(NSInteger index))block;
 
 - (id)rs_downto:(NSInteger)limit do:(void(^)(NSInteger index))block;
