@@ -140,6 +140,25 @@
     return result;
 }
 
+- (instancetype)rs_fill:(id)object {
+    return [self rs_fill:object withRange:NSMakeRange(0, self.count)];
+}
+
+- (instancetype)rs_fill:(id)object withRange:(NSRange)range {
+    if (!object) object = [NSNull null];
+    
+    id result = [NSMutableArray arrayWithCapacity:self.count];
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ((idx >= range.location) && (idx < range.location + range.length)) {
+            [result addObject:object];
+        } else {
+            [result addObject:obj];
+        }
+    }];
+    
+    return result;
+}
+
 - (BOOL)rs_includes:(id)object {
     return [self containsObject:object];
 }

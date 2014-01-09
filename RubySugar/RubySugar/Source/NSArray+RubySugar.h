@@ -95,6 +95,16 @@
 - (instancetype)rs_flatten:(NSInteger)level;
 
 /**
+ Returns a new array filled with ojbect for all elements.
+ */
+- (instancetype)rs_fill:(id)object;
+
+/**
+ Returns a new array filled with ojbect for selected elements.
+ */
+- (instancetype)rs_fill:(id)object withRange:(NSRange)range;
+
+/**
  Mirror: [self containsObject:object];
  */
 - (BOOL)rs_includes:(id)object;
