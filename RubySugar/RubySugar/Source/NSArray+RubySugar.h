@@ -71,7 +71,9 @@
  */
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
-/***/
+/**
+ Calls the given block once for each element in self, passing that element as a parameter
+ */
 - (void)rs_each:(void (^)(id item))block;
 
 /**
@@ -113,7 +115,9 @@
  */
 - (NSString *)rs_join:(NSString *)separator;
 
-/***/
+/**
+ Returns an array of elements returned by the given block.
+ */
 - (instancetype)rs_map:(id (^)(id item))selectorBlock;
 
 /**
@@ -126,7 +130,9 @@
  */
 - (instancetype)rs_permutation:(NSInteger)n;
 
-/***/
+/**
+ Returns a new array containing all elements for which the given block returns a false.
+ */
 - (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock;
 
 /**
@@ -141,11 +147,12 @@
 
 /**
  Returns an array of n random element from the array.
- Returns an empty array in case a target array is empty.
  */
 - (instancetype)rs_sample:(NSUInteger)count;
 
-/***/
+/**
+ Returns a new array containing all elements for which the given block returns a true.
+ */
 - (instancetype)rs_select:(BOOL (^)(id item))conditionBlock;
 
 /**
