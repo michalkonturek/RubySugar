@@ -282,14 +282,6 @@
     return result;
 }
 
-//- (BOOL)mk_any:(BOOL (^)(id item))conditionBlock {
-//    if (!conditionBlock) return NO;
-//    for (id item in self) {
-//        if (conditionBlock(item)) return YES;
-//    }
-//    return NO;
-//}
-
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {
     static NSString *inclusiveRange = @"..";
     static NSString *exclusiveRange = @"...";
