@@ -116,6 +116,10 @@
     return [self rs_drop:count];
 }
 
+- (void)rs_each:(void (^)(id item))block {
+    [self mk_each:block];
+}
+
 - (id)rs_fetch:(NSUInteger)index {
     return [self objectAtIndex:index];
 }
@@ -132,6 +136,25 @@
         else if (![item isKindOfClass:[NSArray class]]) [result addObject:item];
         else [result addObjectsFromArray:[item rs_flatten:(level - 1)]];
     }
+    
+    return result;
+}
+
+- (instancetype)rs_fill:(id)object {
+    return [self rs_fill:object withRange:NSMakeRange(0, self.count)];
+}
+
+- (instancetype)rs_fill:(id)object withRange:(NSRange)range {
+    if (!object) object = [NSNull null];
+    
+    id result = [NSMutableArray arrayWithCapacity:self.count];
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ((idx >= range.location) && (idx < range.location + range.length)) {
+            [result addObject:object];
+        } else {
+            [result addObject:obj];
+        }
+    }];
     
     return result;
 }
@@ -157,6 +180,10 @@
         else result = [NSString stringWithFormat:@"%@%@%@", result, separator, obj];
     }];
     return result;
+}
+
+- (instancetype)rs_map:(id (^)(id item))selectorBlock {
+    return [self mk_map:selectorBlock];
 }
 
 - (instancetype)rs_reverse {
@@ -188,6 +215,10 @@
     return result;
 }
 
+- (instancetype)rs_select:(BOOL (^)(id item))conditionBlock {
+    return [self mk_select:conditionBlock];
+}
+
 - (instancetype)rs_shuffle {
     NSInteger index =  arc4random_uniform(self.count);
     return [self rs_permutation][index];
@@ -210,6 +241,10 @@
     }
     
     return result;
+}
+
+- (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock {
+    return [self mk_reject:conditionBlock];
 }
 
 - (instancetype)rs_zip {
@@ -264,14 +299,6 @@
     }
     
     return result;
-}
-
-- (BOOL)mk_any:(BOOL (^)(id item))conditionBlock {
-    if (!conditionBlock) return NO;
-    for (id item in self) {
-        if (conditionBlock(item)) return YES;
-    }
-    return NO;
 }
 
 - (id)objectForKeyedSubscript:(id<NSCopying>)key {

@@ -282,6 +282,39 @@
     assertThat(result, hasCountOf([expected count]));
 }
 
+- (void)test_fill {
+    id target = @[@1, @2, @3];
+    id expected = @[@0, @0, @0];
+
+    id result = [target rs_fill:@0];
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
+}
+
+- (void)test_fill_supports_nil {
+    id target = @[@1, @2, @3];
+
+    id result = [target rs_fill:nil];
+    
+    id null = [NSNull null];
+    assertThat(result, onlyContains(null, null, null, nil));
+}
+
+- (void)test_fillWithRange {
+    id target = @[@1, @2, @3, @4];
+    id expected = @[@1, @0, @0, @4];
+    
+    id result = [target rs_fill:@0 withRange:NSMakeRange(1, 2)];
+    [expected enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(result[idx]));
+    }];
+    
+    assertThat(result, hasCountOf([expected count]));
+}
+
 - (void)test_includes_mirrors_containsObject {
     id target = @[@1, @2, @3];
     assertThatBool([target rs_includes:@2], equalToBool([target containsObject:@2]));
