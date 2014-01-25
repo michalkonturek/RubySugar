@@ -5,6 +5,15 @@
 [![Build Version](https://cocoapod-badges.herokuapp.com/v/RubySugar/badge.png)](https://github.com/michalkonturek/RubySugar)
 [![Build Status](https://travis-ci.org/michalkonturek/RubySugar.png?branch=master)](https://travis-ci.org/michalkonturek/RubySugar)
 
+
+## License
+
+Source code of this project is available under the standard MIT license. Please see [the license file][LICENSE].
+
+[PODS]:http://cocoapods.org/
+[LICENSE]:https://github.com/michalkonturek/RubySugar/blob/master/LICENSE
+
+
 ## Intro
 
 Ports Ruby syntactic sugar to Objective-C.
@@ -46,12 +55,6 @@ result = [@"Hello" rs_chars];
 // ["H", "e", "l", "l", "o"]
 ```
 
-## License
-
-Source code of this project is available under the standard MIT license. Please see [the license file][LICENSE].
-
-[PODS]:http://cocoapods.org/
-[LICENSE]:https://github.com/michalkonturek/RubySugar/blob/master/LICENSE
 
 # API
 
@@ -158,8 +161,9 @@ Source code of this project is available under the standard MIT license. Please 
 - (NSString *)rs_justifyRight:(NSInteger)length with:(NSString *)pad;
 
 - (NSArray *)rs_split;
-
 - (NSArray *)rs_split:(NSString *)pattern;
+
+- (NSString *)rs_strip;
 
 - (id)objectAtIndexedSubscript:(NSUInteger)index;
 - (id)objectForKeyedSubscript:(id<NSCopying>)key;
