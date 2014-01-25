@@ -183,6 +183,14 @@
     assertThat(result, contains(@"H", @"e", @"l", @"l", @"o", nil));
 }
 
+- (void)test_strip_contains_whitespaces_and_newlines {
+    id input = @"\t    goodbye\r\n";
+    id expected = @"goodbye";
+
+    id result = [input rs_strip];
+    assertThat(result, equalTo(expected));
+}
+
 - (void)test_objectAtIndexedSubscript_is_supported {
     id expected = @"e";
     
