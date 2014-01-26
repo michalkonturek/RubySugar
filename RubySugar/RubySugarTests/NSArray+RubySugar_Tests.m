@@ -544,6 +544,26 @@
     assertThat(result, containsInAnyOrder(@[@"student", @"sam"] , @[@"teacher", @"matz"], nil));
 }
 
+- (void)test_inject_with_omited_init_value {
+    id input = @[@"A", @"Brown", @"Fox", @"Jumps", @"Over", @"A", @"Lazy", @"Dog"];
+    id expected = @"A Brown Fox Jumps Over A Lazy Dog";
+    id result = [input rs_inject:^id(id item1, id item2) {
+        return [NSString stringWithFormat:@"%@ %@", item1, item2];
+    }];
+
+    assertThat(result, equalTo(expected));
+}
+
+- (void)test_inject_with_init_value {
+    id input = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+    id expected = @(1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10);
+    id result = [input rs_inject:@1 injectBlock:^id(id item1, id item2) {
+        return @([item1 intValue] * [item2 intValue]);
+    }];
+
+    assertThat(result, equalTo(expected));
+}
+
 - (void)test_zip {
     id target = @[@1, @2, @3];
     id expected = @[@[@1], @[@2], @[@3]];

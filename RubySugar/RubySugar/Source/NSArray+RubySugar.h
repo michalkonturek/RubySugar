@@ -146,6 +146,12 @@
 - (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock;
 
 /**
+ Combines all elements of enum by applying a binary operation
+ */
+- (id)rs_inject:(id (^)(id item1, id item2))injectBlock;
+- (id)rs_inject:(id)initVal injectBlock:(id (^)(id item1, id item2))injectBlock;
+
+/**
  Returns a new array containing self‘s elements in reverse order.
  */
 - (instancetype)rs_reverse;
