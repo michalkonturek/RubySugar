@@ -163,17 +163,17 @@
     return [self containsObject:object];
 }
 
-- (id)rs_inject:(id (^)(id item1, id item2))injectBlock {
-    return [self rs_inject:nil injectBlock:injectBlock];
+- (id)rs_inject:(id (^)(id accumulator, id item))block {
+    return [self rs_inject:nil withBlock:block];
 }
 
-- (id)rs_inject:(id)initVal injectBlock:(id (^)(id item1, id item2))injectBlock {
-    if (!injectBlock) return initVal;
+- (id)rs_inject:(id)initial withBlock:(id (^)(id accumulator, id item))block {
+    if (!block) return initial;
     
-    __block id result = initVal;
+    __block id result = initial;
     
-    [self rs_each:^(id item) {
-        result = result ? injectBlock(result, item) : item;
+    [self rs_each:^(id element) {
+        result = result ? block(result, element) : element;
     }];
     
     return result;
@@ -198,8 +198,8 @@
     return result;
 }
 
-- (instancetype)rs_map:(id (^)(id item))selectorBlock {
-    return [self mk_map:selectorBlock];
+- (instancetype)rs_map:(id (^)(id item))block {
+    return [self mk_map:block];
 }
 
 - (instancetype)rs_reverse {
@@ -231,8 +231,8 @@
     return result;
 }
 
-- (instancetype)rs_select:(BOOL (^)(id item))conditionBlock {
-    return [self mk_select:conditionBlock];
+- (instancetype)rs_select:(BOOL (^)(id item))block {
+    return [self mk_select:block];
 }
 
 - (instancetype)rs_shuffle {
@@ -259,8 +259,8 @@
     return result;
 }
 
-- (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock {
-    return [self mk_reject:conditionBlock];
+- (instancetype)rs_reject:(BOOL (^)(id item))block {
+    return [self mk_reject:block];
 }
 
 - (instancetype)rs_zip {

@@ -112,8 +112,8 @@
 /**
  Combines all elements of enum by applying a binary operation
  */
-- (id)rs_inject:(id (^)(id item1, id item2))injectBlock;
-- (id)rs_inject:(id)initVal injectBlock:(id (^)(id item1, id item2))injectBlock;
+- (id)rs_inject:(id (^)(id accumulator, id item))block;
+- (id)rs_inject:(id)initial withBlock:(id (^)(id accumulator, id item))block;
 
 /**
  Shorthand ([self count] == 0)
@@ -134,7 +134,7 @@
 /**
  Returns an array of elements returned by the given block.
  */
-- (instancetype)rs_map:(id (^)(id item))selectorBlock;
+- (instancetype)rs_map:(id (^)(id item))block;
 
 /**
  Returns array that yields all permutations of all elements.
@@ -149,7 +149,7 @@
 /**
  Returns a new array containing all elements for which the given block returns a false.
  */
-- (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock;
+- (instancetype)rs_reject:(BOOL (^)(id item))block;
 
 /**
  Returns a new array containing self‘s elements in reverse order.
@@ -169,7 +169,7 @@
 /**
  Returns a new array containing all elements for which the given block returns a true.
  */
-- (instancetype)rs_select:(BOOL (^)(id item))conditionBlock;
+- (instancetype)rs_select:(BOOL (^)(id item))block;
 
 /**
  Returns a new array with elements of self shuffled.
