@@ -110,6 +110,12 @@
 - (BOOL)rs_includes:(id)object;
 
 /**
+ Combines all elements of enum by applying a binary operation
+ */
+- (id)rs_inject:(id (^)(id item1, id item2))injectBlock;
+- (id)rs_inject:(id)initVal injectBlock:(id (^)(id item1, id item2))injectBlock;
+
+/**
  Shorthand ([self count] == 0)
  */
 - (BOOL)rs_isEmpty;
@@ -144,12 +150,6 @@
  Returns a new array containing all elements for which the given block returns a false.
  */
 - (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock;
-
-/**
- Combines all elements of enum by applying a binary operation
- */
-- (id)rs_inject:(id (^)(id item1, id item2))injectBlock;
-- (id)rs_inject:(id)initVal injectBlock:(id (^)(id item1, id item2))injectBlock;
 
 /**
  Returns a new array containing self‘s elements in reverse order.

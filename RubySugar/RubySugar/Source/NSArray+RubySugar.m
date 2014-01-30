@@ -163,6 +163,22 @@
     return [self containsObject:object];
 }
 
+- (id)rs_inject:(id (^)(id item1, id item2))injectBlock {
+    return [self rs_inject:nil injectBlock:injectBlock];
+}
+
+- (id)rs_inject:(id)initVal injectBlock:(id (^)(id item1, id item2))injectBlock {
+    if (!injectBlock) return initVal;
+    
+    __block id result = initVal;
+    
+    [self rs_each:^(id item) {
+        result = result ? injectBlock(result, item) : item;
+    }];
+    
+    return result;
+}
+
 - (BOOL)rs_isEmpty {
     return ([self count] == 0);
 }
@@ -245,22 +261,6 @@
 
 - (instancetype)rs_reject:(BOOL (^)(id item))conditionBlock {
     return [self mk_reject:conditionBlock];
-}
-
-- (id)rs_inject:(id (^)(id item1, id item2))injectBlock {
-    return [self rs_inject:nil injectBlock:injectBlock];
-}
-
-- (id)rs_inject:(id)initVal injectBlock:(id (^)(id item1, id item2))injectBlock {
-    if (!injectBlock) return initVal;
-
-    __block id result = initVal;
-
-    [self rs_each:^(id item) {
-        result = result ? injectBlock(result, item) : item;
-    }];
-
-    return result;
 }
 
 - (instancetype)rs_zip {
