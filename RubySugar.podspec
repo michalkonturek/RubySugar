@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RubySugar"
-  s.version      = "1.0.2"
+  s.version      = "1.1.0"
   s.summary      = "Ports Ruby syntactic sugar to Objective-C."
   s.homepage     = "https://github.com/michalkonturek/RubySugar"
   s.license      = 'MIT'
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.source       = { 
     :git => "https://github.com/michalkonturek/RubySugar.git", 
-    :tag => "1.0.2" 
+    :tag => "1.1.0" 
   }
 
   s.source_files = 'Source/**/*.{h,m}'

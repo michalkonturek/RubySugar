@@ -124,22 +124,6 @@
     return [self objectAtIndex:index];
 }
 
-- (instancetype)rs_flatten {
-    return [self rs_flatten:-1];
-}
-
-- (instancetype)rs_flatten:(NSInteger)level {
-    id result = [NSMutableArray array];
-    
-    for (id item in self) {
-        if (level == 0) [result addObject:item];
-        else if (![item isKindOfClass:[NSArray class]]) [result addObject:item];
-        else [result addObjectsFromArray:[item rs_flatten:(level - 1)]];
-    }
-    
-    return result;
-}
-
 - (instancetype)rs_fill:(id)object {
     return [self rs_fill:object withRange:NSMakeRange(0, self.count)];
 }
@@ -155,6 +139,22 @@
             [result addObject:obj];
         }
     }];
+    
+    return result;
+}
+
+- (instancetype)rs_flatten {
+    return [self rs_flatten:-1];
+}
+
+- (instancetype)rs_flatten:(NSInteger)level {
+    id result = [NSMutableArray array];
+    
+    for (id item in self) {
+        if (level == 0) [result addObject:item];
+        else if (![item isKindOfClass:[NSArray class]]) [result addObject:item];
+        else [result addObjectsFromArray:[item rs_flatten:(level - 1)]];
+    }
     
     return result;
 }

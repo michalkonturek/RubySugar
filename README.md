@@ -79,25 +79,39 @@ result = [@"Hello" rs_chars];
 - (instancetype)rs_drop:(NSInteger)count;
 - (id)rs_dropWhile:(BOOL(^)(id item))block;
 
+- (void)rs_each:(void (^)(id item))block;
+
 - (id)rs_fetch:(NSUInteger)index;
+
+- (instancetype)rs_fill:(id)object;
+- (instancetype)rs_fill:(id)object withRange:(NSRange)range;
 
 - (instancetype)rs_flatten;
 - (instancetype)rs_flatten:(NSInteger)level;
 
 - (BOOL)rs_includes:(id)object;
 
+- (id)rs_inject:(id (^)(id accumulator, id item))block;
+- (id)rs_inject:(id)initial withBlock:(id (^)(id accumulator, id item))block;
+
 - (BOOL)rs_isEmpty;
 
 - (NSString *)rs_join;
 - (NSString *)rs_join:(NSString *)separator;
 
+- (instancetype)rs_map:(id (^)(id item))block;
+
 - (instancetype)rs_permutation;
 - (instancetype)rs_permutation:(NSInteger)n;
+
+- (instancetype)rs_reject:(BOOL (^)(id item))block;
 
 - (instancetype)rs_reverse;
 
 - (id)rs_sample;
 - (instancetype)rs_sample:(NSUInteger)count;
+
+- (instancetype)rs_select:(BOOL (^)(id item))block;
 
 - (instancetype)rs_shuffle;
 
@@ -108,6 +122,8 @@ result = [@"Hello" rs_chars];
 - (instancetype)rs_uniq:(id(^)(id item))block;
 
 - (instancetype)rs_zip;
+
+- (id)objectForKeyedSubscript:(id<NSCopying>)key;
 
 ```
 

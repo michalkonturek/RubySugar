@@ -82,6 +82,16 @@
 - (id)rs_fetch:(NSUInteger)index;
 
 /**
+ Returns a new array filled with ojbect for all elements.
+ */
+- (instancetype)rs_fill:(id)object;
+
+/**
+ Returns a new array filled with ojbect for selected elements.
+ */
+- (instancetype)rs_fill:(id)object withRange:(NSRange)range;
+
+/**
  Returns a new array that is a one-dimensional flattening of self (recursively).
  That is, for every element that is an array, extract its elements into the new array.
  */
@@ -93,16 +103,6 @@
  The optional level argument determines the level of recursion to flatten.
  */
 - (instancetype)rs_flatten:(NSInteger)level;
-
-/**
- Returns a new array filled with ojbect for all elements.
- */
-- (instancetype)rs_fill:(id)object;
-
-/**
- Returns a new array filled with ojbect for selected elements.
- */
-- (instancetype)rs_fill:(id)object withRange:(NSRange)range;
 
 /**
  Mirror: [self containsObject:object];
