@@ -9,6 +9,6 @@
 // MKFoundationKit/Block
 #define COCOAPODS_POD_AVAILABLE_MKFoundationKit_Block
 #define COCOAPODS_VERSION_MAJOR_MKFoundationKit_Block 1
-#define COCOAPODS_VERSION_MINOR_MKFoundationKit_Block 0
+#define COCOAPODS_VERSION_MINOR_MKFoundationKit_Block 2
 #define COCOAPODS_VERSION_PATCH_MKFoundationKit_Block 0
 
