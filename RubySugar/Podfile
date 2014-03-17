@@ -1,5 +1,5 @@
 
-pod 'MKFoundationKit/Block', '>= 1.1.0'
+pod 'MKFoundationKit/Block', '>= 1.0.0'
 
 target :RubySugarTests, :exclusive => true do
 	pod 'OCHamcrest',  '>= 3.0.0'    
