@@ -200,6 +200,14 @@
     assertThat(result, contains(@"H", @"e", @"l", @"l", @"o", nil));
 }
 
+- (void)test_split_when_no_pattern_found_returns_self {
+    id input = @"Hello";
+    
+    id result = [input rs_split:@"x"];
+    assertThat(result, contains(input, nil));
+//    assertThat(result, contains(@"H", @"e", @"l", @"l", @"o", nil));
+}
+
 - (void)test_strip_contains_whitespaces_and_newlines {
     id input = @"\t    goodbye\r\n";
     id expected = @"goodbye";

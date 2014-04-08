@@ -162,6 +162,8 @@
         location = match.range.location + match.range.length;
     }
     
+    if ([result rs_isEmpty]) [result addObject:self];
+    
     return result;
 }
 
