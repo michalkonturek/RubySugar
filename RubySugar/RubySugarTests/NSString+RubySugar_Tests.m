@@ -200,6 +200,13 @@
     assertThat(result, contains(@" Split", @"me", @"good", nil));
 }
 
+- (void)test_split_divides_on_character_3 {
+    id input = @"! Split!me!good! x ";
+    
+    id result = [input rs_split:@"!"];
+    assertThat(result, contains(@" Split", @"me", @"good", @"x", nil));
+}
+
 - (void)test_split_when_empty_pattern_it_divides_by_character {
     id input = @"Hello";
     
