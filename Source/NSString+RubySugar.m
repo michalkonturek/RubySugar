@@ -162,6 +162,11 @@
         location = match.range.location + match.range.length;
     }
     
+    if (location < [self length]) {
+        id token = [[self substringFromIndex:location] rs_strip];
+        [result addObject:token];
+    }
+    
     if ([result rs_isEmpty]) [result addObject:self];
     
     return result;

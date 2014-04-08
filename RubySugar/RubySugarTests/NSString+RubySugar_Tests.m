@@ -186,7 +186,14 @@
     assertThat(result, contains(@"Split", @"me", nil));
 }
 
-- (void)test_split_divides_on_character {
+- (void)test_split_divides_on_character_1 {
+    id input = @"! Split!me!good";
+    
+    id result = [input rs_split:@"!"];
+    assertThat(result, contains(@" Split", @"me", @"good", nil));
+}
+
+- (void)test_split_divides_on_character_2 {
     id input = @"! Split!me!good!";
     
     id result = [input rs_split:@"!"];
