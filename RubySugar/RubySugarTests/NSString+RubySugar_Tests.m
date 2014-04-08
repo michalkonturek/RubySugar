@@ -186,11 +186,25 @@
     assertThat(result, contains(@"Split", @"me", nil));
 }
 
-- (void)test_split_divides_on_character {
+- (void)test_split_divides_on_character_1 {
+    id input = @"! Split!me!good";
+    
+    id result = [input rs_split:@"!"];
+    assertThat(result, contains(@" Split", @"me", @"good", nil));
+}
+
+- (void)test_split_divides_on_character_2 {
     id input = @"! Split!me!good!";
     
     id result = [input rs_split:@"!"];
     assertThat(result, contains(@" Split", @"me", @"good", nil));
+}
+
+- (void)test_split_divides_on_character_3 {
+    id input = @"! Split!me!good! x ";
+    
+    id result = [input rs_split:@"!"];
+    assertThat(result, contains(@" Split", @"me", @"good", @"x", nil));
 }
 
 - (void)test_split_when_empty_pattern_it_divides_by_character {
@@ -198,6 +212,14 @@
     
     id result = [input rs_split:@""];
     assertThat(result, contains(@"H", @"e", @"l", @"l", @"o", nil));
+}
+
+- (void)test_split_when_no_pattern_found_returns_self {
+    id input = @"Hello";
+    
+    id result = [input rs_split:@"x"];
+    assertThat(result, contains(input, nil));
+//    assertThat(result, contains(@"H", @"e", @"l", @"l", @"o", nil));
 }
 
 - (void)test_strip_contains_whitespaces_and_newlines {
