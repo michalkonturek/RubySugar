@@ -196,13 +196,13 @@
     return result;
 }
 
-- (instancetype)rs_insert:(id)object atIndex:(NSInteger)index {
-    if (index < 0) return self;
-    
-//    if (index == 0) return [object:self];
-    
-    return nil;
-}
+//- (instancetype)rs_insert:(id)object atIndex:(NSInteger)index {
+//    if (index < 0) return self;
+//    
+////    if (index == 0) return [object:self];
+//    
+//    return nil;
+//}
 
 - (BOOL)rs_isEmpty {
     return ([self count] == 0);

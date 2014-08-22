@@ -135,7 +135,7 @@
 /**
  Inserts the given values before the element with the given index.
  */
-- (instancetype)rs_insert:(id)object atIndex:(NSInteger)index;
+//- (instancetype)rs_insert:(id)object atIndex:(NSInteger)index;
 
 /**
  Shorthand ([self count] == 0)

@@ -357,13 +357,13 @@
     assertThat(result, equalTo(expected));
 }
 
-- (void)test_insert_returns_self_when_negative_index {
-    
-    id target = @[@1, @2, @3];
-    id result = [target rs_insert:@0 atIndex:-1];
-    
-    assertThat(result, sameInstance(target));
-}
+//- (void)test_insert_returns_self_when_negative_index {
+//    
+//    id target = @[@1, @2, @3];
+//    id result = [target rs_insert:@0 atIndex:-1];
+//    
+//    assertThat(result, sameInstance(target));
+//}
 
 - (void)test_isEmpty_returns_true {
     assertThatBool([@[] rs_isEmpty], equalToBool(YES));
