@@ -12,6 +12,8 @@
 		847CF696189BBBB500157E17 /* NSMutableArray+RubySugar.m in Sources */ = {isa = PBXBuildFile; fileRef = 847CF68F189BBBB500157E17 /* NSMutableArray+RubySugar.m */; };
 		847CF697189BBBB500157E17 /* NSNumber+RubySugar.m in Sources */ = {isa = PBXBuildFile; fileRef = 847CF691189BBBB500157E17 /* NSNumber+RubySugar.m */; };
 		847CF698189BBBB500157E17 /* NSString+RubySugar.m in Sources */ = {isa = PBXBuildFile; fileRef = 847CF693189BBBB500157E17 /* NSString+RubySugar.m */; };
+		849EC78519A74DB200C44341 /* NSObject+RubySugar.m in Sources */ = {isa = PBXBuildFile; fileRef = 849EC78419A74DB200C44341 /* NSObject+RubySugar.m */; };
+		849EC78719A74E2400C44341 /* NSObject+RubySugar_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849EC78619A74E2400C44341 /* NSObject+RubySugar_Tests.m */; };
 		901B256A185792D000865ECB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B2569185792D000865ECB /* Foundation.framework */; };
 		901B256C185792D000865ECB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B256B185792D000865ECB /* CoreGraphics.framework */; };
 		901B256E185792D000865ECB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 901B256D185792D000865ECB /* UIKit.framework */; };
@@ -52,6 +54,9 @@
 		847CF692189BBBB500157E17 /* NSString+RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RubySugar.h"; sourceTree = "<group>"; };
 		847CF693189BBBB500157E17 /* NSString+RubySugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RubySugar.m"; sourceTree = "<group>"; };
 		847CF694189BBBB500157E17 /* RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubySugar.h; sourceTree = "<group>"; };
+		849EC78319A74DB200C44341 /* NSObject+RubySugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RubySugar.h"; sourceTree = "<group>"; };
+		849EC78419A74DB200C44341 /* NSObject+RubySugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RubySugar.m"; sourceTree = "<group>"; };
+		849EC78619A74E2400C44341 /* NSObject+RubySugar_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RubySugar_Tests.m"; sourceTree = "<group>"; };
 		901B2566185792D000865ECB /* RubySugar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RubySugar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		901B2569185792D000865ECB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		901B256B185792D000865ECB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,6 +115,8 @@
 				847CF68F189BBBB500157E17 /* NSMutableArray+RubySugar.m */,
 				847CF690189BBBB500157E17 /* NSNumber+RubySugar.h */,
 				847CF691189BBBB500157E17 /* NSNumber+RubySugar.m */,
+				849EC78319A74DB200C44341 /* NSObject+RubySugar.h */,
+				849EC78419A74DB200C44341 /* NSObject+RubySugar.m */,
 				847CF692189BBBB500157E17 /* NSString+RubySugar.h */,
 				847CF693189BBBB500157E17 /* NSString+RubySugar.m */,
 				847CF694189BBBB500157E17 /* RubySugar.h */,
@@ -181,6 +188,7 @@
 				9091E922186914C0007A196B /* NSArray+RubySugar_Tests.m */,
 				9038E3EB186C7641005D672D /* NSMutableArray+RubySugar_Tests.m */,
 				90AE5C841861BFA500E227C4 /* NSNumber+RubySugar_Tests.m */,
+				849EC78619A74E2400C44341 /* NSObject+RubySugar_Tests.m */,
 				90CD033418593BD0007FCB16 /* NSString+RubySugar_Tests.m */,
 				901B2589185792D000865ECB /* Supporting Files */,
 			);
@@ -358,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849EC78519A74DB200C44341 /* NSObject+RubySugar.m in Sources */,
 				847CF698189BBBB500157E17 /* NSString+RubySugar.m in Sources */,
 				901B257A185792D000865ECB /* AppDelegate.m in Sources */,
 				901B2576185792D000865ECB /* main.m in Sources */,
@@ -374,6 +383,7 @@
 				9038E3EC186C7641005D672D /* NSMutableArray+RubySugar_Tests.m in Sources */,
 				9091E923186914C0007A196B /* NSArray+RubySugar_Tests.m in Sources */,
 				90AE5C851861BFA500E227C4 /* NSNumber+RubySugar_Tests.m in Sources */,
+				849EC78719A74E2400C44341 /* NSObject+RubySugar_Tests.m in Sources */,
 				90CD033518593BD0007FCB16 /* NSString+RubySugar_Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

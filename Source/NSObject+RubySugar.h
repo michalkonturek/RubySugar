@@ -10,4 +10,6 @@
 
 @interface NSObject (RubySugar)
 
+- (NSArray *):(id)object;
+
 @end
