@@ -44,6 +44,20 @@
     }];
 }
 
+- (void)test_concat_when_target_is_array {
+    id target = @[@0, @1];
+    id input = @[@2, @3, @4];
+    id expected = @[@0, @1, @2, @3, @4];
+    
+    id result = [target:input];
+    
+    assertThat(result, hasCountOf([expected count]));
+    
+    [result enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        assertThat(obj, equalTo(expected[idx]));
+    }];
+}
+
 - (void)test_concat_adds_object {
     id target = @1;
     id input = @2;

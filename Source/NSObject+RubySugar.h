@@ -10,6 +10,11 @@
 
 @interface NSObject (RubySugar)
 
+/**
+ Returns new array by concatenating object with input object.
+ If argument is an array, all objects are concatenated.
+ If target is an array, : on NSArray is executed.
+ */
 - (NSArray *):(id)object;
 
 @end
